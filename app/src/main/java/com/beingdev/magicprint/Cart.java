@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.beingdev.magicprint.models.SingleProductModel;
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
 import com.beingdev.magicprint.usersession.UserSession;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -26,6 +28,7 @@ import java.util.HashMap;
 
 public class Cart extends AppCompatActivity {
 
+    Button startPaymentButton;
     //to get user session data
     private UserSession session;
     private HashMap<String,String> user;
@@ -48,6 +51,17 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        startPaymentButton = (Button) findViewById(R.id.startPayment);
+
+        startPaymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Cart.this,PaymentActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,6 +83,7 @@ public class Bags extends AppCompatActivity {
                 if (tv_no_item.getVisibility() == View.VISIBLE) {
                     tv_no_item.setVisibility(View.GONE);
                 }
+
                 viewHolder.cardname.setText(model.getCardname());
                 viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
                 Picasso.with(Bags.this).load(model.getCardimage()).into(viewHolder.cardimage);

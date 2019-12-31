@@ -15,6 +15,15 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PaymentActivity">
+            
+        </activity>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_YoGexBd2dXf6GR"
+            />
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="MyDatabase.db" />
@@ -103,8 +112,9 @@
         <activity
             android:name=".prodcutscategory.Stationary"
             android:theme="@style/WhiteTheme" />
-        <activity android:name=".WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

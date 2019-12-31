@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SHG-Customer.iml" filepath="$PROJECT_DIR$/SHG-Customer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SHGCustomer.iml" filepath="$PROJECT_DIR$/SHGCustomer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

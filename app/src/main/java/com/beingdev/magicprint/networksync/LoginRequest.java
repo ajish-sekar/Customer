@@ -3,6 +3,7 @@ package com.beingdev.magicprint.networksync;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.beingdev.magicprint.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 
 public class LoginRequest extends StringRequest {
-    private static final String LOGIN_URL = "http://raj.serveo.net/login.php";
+    private static final String LOGIN_URL = Constants.BASE_URL+"/login.php";
     private Map<String, String> parameters;
 
     public LoginRequest(String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener) {

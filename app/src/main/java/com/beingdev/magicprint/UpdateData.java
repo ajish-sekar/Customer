@@ -328,7 +328,7 @@ public class UpdateData extends AppCompatActivity {
             check = s.toString();
 
             if (check.length() < 4 || check.length() > 40) {
-                edtemail.setError("Email Must consist of 4 to 20 characters");
+                edtemail.setError("Email must consist of 4 to 20 characters");
             } else if (!check.matches("^[A-za-z0-9.@]+")) {
                 edtemail.setError("Only . and @ characters allowed");
             } else if (!check.contains("@") || !check.contains(".")) {

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -104,7 +106,8 @@ public class Profile extends AppCompatActivity {
         email=user.get(UserSession.KEY_EMAIL);
         mobile=user.get(UserSession.KEY_MOBiLE);
         photo=user.get(UserSession.KEY_PHOTO);
-
+        photo = Constants.BASE_URL+"/"+photo;
+        Log.v("PHOTO",photo);
         //setting values
         tvemail.setText(email);
         tvphone.setText(mobile);
@@ -125,7 +128,7 @@ public class Profile extends AppCompatActivity {
         sliderImages.add("http://uploads.printland.in/fnf/online2017/home_republic_day.jpg");
         sliderImages.add("http://uploads.printland.in/fnf/online2017/calender-homepage-29-dec.jpg");
         sliderImages.add("http://uploads.printland.in/fnf/online2017/notebook-homepage-05-dec.jpg");
-        sliderImages.add("http://uploads.printland.in/fnf/online2017/home-vtds.jpg");
+//        sliderImages.add("http://uploads.printland.in/fnf/online2017/home-vtds.jpg");
 
         for (String s:sliderImages){
             DefaultSliderView sliderView=new DefaultSliderView(this);

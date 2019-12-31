@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">SHG Buyer</string>
+    <string name="app_name">SHG Customer</string>
 
     <string name="title_activity_registration">Registration</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="register">Register</string>
     <string name="about_activity_title">About Us</string>
-    <string name="about_activity_description"><b>We believe in the use of technology for the empowerement of everyone!</b></string>
+    <string name="about_activity_description"><b>We believe in the use of technology for the empowerment of everyone!</b></string>
     <string name="title_activity_main">MainActivity</string>
     <string name="domain">Domain</string>
     <string name="website">shgnitt.com</string>

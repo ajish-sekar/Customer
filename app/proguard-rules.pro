@@ -34,6 +34,10 @@
 -dontwarn java.awt.**
 -dontwarn java.beans.Beans
 -dontwarn javax.security.**
+-dontwarn org.apache.http.**
+-dontwarn android.net.http.AndroidHttpClient
+-dontwarn com.google.android.gms.**
+-dontwarn com.android.volley.toolbox.**
 -keep class javamail.** {*;}
 -keep class javax.mail.** {*;}
 -keep class javax.activation.** {*;}
@@ -53,8 +57,19 @@
 -keepclassmembers class * {
     private <fields>;
 }
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+-keepattributes JavascriptInterface
+-keepattributes *Annotation*
+
+-dontwarn com.razorpay.**
+-keep class com.razorpay.** {*;}
+-optimizations !method/inlining/*
+-keepclasseswithmembers class * {  public void onPayment*(...);}
 
 -keepclasseswithmembers class * { @com.activeandroid.annotation.Column <fields>; }
+
 -keepattributes InnerClasses
 -keep class com.beingdev.magicprint.prodcutscategory.Bags$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Calendars$* { *; }
@@ -69,3 +84,5 @@
 -keep class com.beingdev.magicprint.prodcutscategory.Keychains** { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Stationary** { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Tshirts** { *; }
+
+-ignorewarnings

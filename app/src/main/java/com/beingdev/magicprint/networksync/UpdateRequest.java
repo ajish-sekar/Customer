@@ -3,6 +3,7 @@ package com.beingdev.magicprint.networksync;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.beingdev.magicprint.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class UpdateRequest extends StringRequest {
 
-    private static final String REGISTER_URL = "http://magic-print.000webhostapp.com/updateuser.php";
+    private static final String REGISTER_URL = Constants.BASE_URL+"/updateuser.php";
     private Map<String, String> parameters;
     public UpdateRequest(String name, String mobile, String email, String newemail, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_URL, listener, null);

@@ -52,6 +52,7 @@ public class SplashActivity extends Activity {
                     // Start your app main activity
                     startActivity(new Intent(SplashActivity.this,WelcomeActivity.class));
                     finish();
+
                 }
             }, SPLASH_TIME_OUT);
         }

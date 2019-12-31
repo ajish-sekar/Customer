@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
                 //dummy login
-                startActivity(loginSuccess);
+//                startActivity(loginSuccess);
 //                finish();
                 email=edtemail.getText().toString();
                 pass=edtpass.getText().toString();
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                     loginRequest.setTag(TAG);
-//                    requestQueue.add(loginRequest);
+                    requestQueue.add(loginRequest);
                 }
 
             }
@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validateUsername(String email) {
 
         if (email.length() < 4 || email.length() > 30) {
-            edtemail.setError("Email Must consist of 4 to 30 characters");
+            edtemail.setError("Email must consist of 4 to 30 characters");
             return false;
         } else if (!email.matches("^[A-za-z0-9.@]+")) {
             edtemail.setError("Only . and @ characters allowed");

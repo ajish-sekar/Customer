@@ -158,7 +158,7 @@ public class OrderDetails extends AppCompatActivity {
                     .setAction("Action", null).show();
             return false;
         } else if (orderemail.getText().toString().length() < 4 || orderemail.getText().toString().length() > 30) {
-            orderemail.setError("Email Must consist of 4 to 30 characters");
+            orderemail.setError("Email must consist of 4 to 30 characters");
             return false;
         } else if (!orderemail.getText().toString().matches("^[A-za-z0-9.@]+")) {
             orderemail.setError("Only . and @ characters allowed");

@@ -229,7 +229,7 @@
 
                             <TextView
                                 android:layout_below="@id/calendars"
-                                android:text="..."
+                                android:text="Stationary"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
@@ -251,7 +251,7 @@
 
                         <TextView
                             android:layout_below="@id/keychain"
-                            android:text="..."
+                            android:text="Others.."
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>

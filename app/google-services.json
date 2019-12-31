@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "763710677037",
-    "firebase_url": "https://magic-print-8db31.firebaseio.com",
-    "project_id": "magic-print-8db31",
-    "storage_bucket": "magic-print-8db31.appspot.com"
+    "project_number": "546206668634",
+    "firebase_url": "https://shgnitt-1d40f.firebaseio.com",
+    "project_id": "shgnitt-1d40f",
+    "storage_bucket": "shgnitt-1d40f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:763710677037:android:3c7d6470405dd51d",
+        "mobilesdk_app_id": "1:546206668634:android:f957e18e7d55fc263c4563",
         "android_client_info": {
           "package_name": "com.beingdev.magicprint"
         }
       },
       "oauth_client": [
         {
-          "client_id": "763710677037-oqv89qlsh8ef5dcj5mqe9k0stkbsgdgr.apps.googleusercontent.com",
+          "client_id": "546206668634-ceui8j9g9te12emcfjrnrdas2ttg7rcl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQK0ptquntWfeTTNVqVH7lDWeP-rLR4K8"
+          "current_key": "AIzaSyCPXfysrN1QQ-6XR_PkXklUE3r4Cs2Eb-s"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546206668634-ceui8j9g9te12emcfjrnrdas2ttg7rcl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

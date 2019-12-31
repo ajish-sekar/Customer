@@ -3,6 +3,7 @@ package com.beingdev.magicprint.networksync;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.beingdev.magicprint.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class PasswordRequest extends StringRequest {
 
-    private static final String LOGIN_URL = "http://magic-print.000webhostapp.com/forgotpass.php";
+    private static final String LOGIN_URL = Constants.BASE_URL+"/forgotpass.php";
     private Map<String, String> parameters;
 
     public PasswordRequest(String email, Response.Listener<String> listener, Response.ErrorListener errorListener) {
