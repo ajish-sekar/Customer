@@ -17,7 +17,7 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/buyer_logo"/>
+            android:src="@drawable/logo"/>
 
         <TextView
             android:visibility="invisible"

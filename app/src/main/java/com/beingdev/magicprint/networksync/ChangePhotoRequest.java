@@ -19,7 +19,6 @@ public class ChangePhotoRequest extends StringRequest {
     public ChangePhotoRequest(String email,String image, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_URL, listener, null);
         parameters = new HashMap<>();
-
         parameters.put("email", email);
         parameters.put("image", image);
 

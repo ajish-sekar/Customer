@@ -122,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                     LoginRequest loginRequest = new LoginRequest(email, pass, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
                             progressDialog.dismiss();
                             // Response from the server is in the form if a JSON, so we need a JSON Object
                             try {
