@@ -121,7 +121,6 @@
         app:lottie_fileName="empty_list.json"
         android:layout_height="match_parent"
         android:foregroundGravity="center"
-        android:src="@drawable/cartempty"
         android:visibility="invisible"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"/>

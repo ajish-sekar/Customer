@@ -37,8 +37,8 @@ public class Cart extends AppCompatActivity {
     private StaggeredGridLayoutManager mLayoutManager;
 
     //Getting reference to Firebase Database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabaseReference = database.getReference();
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//    DatabaseReference mDatabaseReference = database.getReference();
     private LottieAnimationView tv_no_item;
     private LinearLayout activitycartlist;
     private LottieAnimationView emptycart;
@@ -109,40 +109,41 @@ public class Cart extends AppCompatActivity {
     private void populateRecyclerView() {
 
         //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<SingleProductModel,MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
-                SingleProductModel.class,
-                R.layout.cart_item_layout,
-                MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("cart").child(mobile).getRef()
-        ) {
-            @Override
-            protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
-                    tv_no_item.setVisibility(View.GONE);
-                }
-                viewHolder.cardname.setText(model.getPrname());
-                viewHolder.cardprice.setText("₹ "+model.getPrprice());
-                viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
-                Picasso.with(Cart.this).load(model.getPrimage()).into(viewHolder.cardimage);
+//        final FirebaseRecyclerAdapter<SingleProductModel,MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
+//                SingleProductModel.class,
+//                R.layout.cart_item_layout,
+//                MovieViewHolder.class,
+//                //referencing the node where we want the database to store the data from our Object
+//                mDatabaseReference.child("cart").child(mobile).getRef()
+//        ) {
+//            @Override
+//            protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
+//                if(tv_no_item.getVisibility()== View.VISIBLE){
+//                    tv_no_item.setVisibility(View.GONE);
+//                }
+//                viewHolder.cardname.setText(model.getPrname());
+//                viewHolder.cardprice.setText("₹ "+model.getPrprice());
+//                viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
+//                Picasso.with(Cart.this).load(model.getPrimage()).into(viewHolder.cardimage);
+//
+//                totalcost += model.getNo_of_items()*Float.parseFloat(model.getPrprice());
+//                totalproducts += model.getNo_of_items();
+//                cartcollect.add(model);
+//
+//                viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(Cart.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
+//                        getRef(position).removeValue();
+//                        session.decreaseCartValue();
+//                        startActivity(new Intent(Cart.this,Cart.class));
+//                        finish();
+//                    }
+//                });
+//            }
+//        };
 
-                totalcost += model.getNo_of_items()*Float.parseFloat(model.getPrprice());
-                totalproducts += model.getNo_of_items();
-                cartcollect.add(model);
-
-                viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Cart.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
-                        getRef(position).removeValue();
-                        session.decreaseCartValue();
-                        startActivity(new Intent(Cart.this,Cart.class));
-                        finish();
-                    }
-                });
-            }
-        };
-        mRecyclerView.setAdapter(adapter);
+//        mRecyclerView.setAdapter(adapter);
     }
 
     public void checkout(View view) {
