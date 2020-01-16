@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
     private int cartcount, wishlistcount;
 
     //Getting reference to Firebase Database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabaseReference = database.getReference();
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//    DatabaseReference mDatabaseReference = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,77 +99,91 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//            Replace this later
+                session.createLoginSession("test","test@test.com","9876543210","");
+
+                //count value of firebase cart and wishlist
+//                                    countFirebaseValues();
+
                 Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(loginSuccess);
+                finish();
+
+                return;
+
+//                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
                 //dummy login
 //                startActivity(loginSuccess);
 //                finish();
-                email=edtemail.getText().toString();
-                pass=edtpass.getText().toString();
 
-                if (validateUsername(email) && validatePassword(pass)) { //Username and Password Validation
-
-                    //Progress Bar while connection establishes
-
-                          final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
-                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                            .setLabel("Please wait")
-                            .setCancellable(false)
-                            .setAnimationSpeed(2)
-                            .setDimAmount(0.5f)
-                            .show();
-
-
-                    LoginRequest loginRequest = new LoginRequest(email, pass, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
-                            // Response from the server is in the form if a JSON, so we need a JSON Object
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.getBoolean("success")) {
-
-                                    //Passing all received data from server to next activity
-                                    String sessionname = jsonObject.getString("name");
-                                    sessionmobile = jsonObject.getString("mobile");
-                                    String sessionemail =  jsonObject.getString("email");
-                                    String sessionphoto =  jsonObject.getString("url");
-
-                                    //create shared preference and store data
-                                    session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto);
-
-                                    //count value of firebase cart and wishlist
-                                    countFirebaseValues();
-
-                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(loginSuccess);
-                                    finish();
-                                } else {
-                                    if(jsonObject.getString("status").equals("INVALID"))
-                                        Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
-                                    else{
-                                        Toast.makeText(LoginActivity.this, "Passwords Don't Match", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
-                            if (error instanceof ServerError)
-                                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            else if (error instanceof TimeoutError)
-                                Toast.makeText(LoginActivity.this, "Connection Timed Out", Toast.LENGTH_SHORT).show();
-                            else if (error instanceof NetworkError)
-                                Toast.makeText(LoginActivity.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    loginRequest.setTag(TAG);
-                    requestQueue.add(loginRequest);
-                }
+//                email=edtemail.getText().toString();
+//                pass=edtpass.getText().toString();
+//
+//                if (validateUsername(email) && validatePassword(pass)) { //Username and Password Validation
+//
+//                    //Progress Bar while connection establishes
+//
+//                          final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
+//                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                            .setLabel("Please wait")
+//                            .setCancellable(false)
+//                            .setAnimationSpeed(2)
+//                            .setDimAmount(0.5f)
+//                            .show();
+//
+//
+//                    LoginRequest loginRequest = new LoginRequest(email, pass, new Response.Listener<String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//
+//                            progressDialog.dismiss();
+//                            // Response from the server is in the form if a JSON, so we need a JSON Object
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(response);
+//                                if (jsonObject.getBoolean("success")) {
+//
+//                                    //Passing all received data from server to next activity
+//                                    String sessionname = jsonObject.getString("name");
+//                                    sessionmobile = jsonObject.getString("mobile");
+//                                    String sessionemail =  jsonObject.getString("email");
+//                                    String sessionphoto =  jsonObject.getString("url");
+//
+//                                    //create shared preference and store data
+//                                    session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto);
+//
+//                                    //count value of firebase cart and wishlist
+////                                    countFirebaseValues();
+//
+//                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+//                                    startActivity(loginSuccess);
+//                                    finish();
+//                                } else {
+//                                    if(jsonObject.getString("status").equals("INVALID"))
+//                                        Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+//                                    else{
+//                                        Toast.makeText(LoginActivity.this, "Passwords Don't Match", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                                Toast.makeText(LoginActivity.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            progressDialog.dismiss();
+//                            if (error instanceof ServerError)
+//                                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+//                            else if (error instanceof TimeoutError)
+//                                Toast.makeText(LoginActivity.this, "Connection Timed Out", Toast.LENGTH_SHORT).show();
+//                            else if (error instanceof NetworkError)
+//                                Toast.makeText(LoginActivity.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    loginRequest.setTag(TAG);
+//                    requestQueue.add(loginRequest);
+//                }
 
             }
         });
@@ -177,34 +191,34 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void countFirebaseValues() {
-
-        mDatabaseReference.child("cart").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
-                    session.setCartValue((int)dataSnapshot.getChildrenCount());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDatabaseReference.child("wishlist").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
-                session.setWishlistValue((int)dataSnapshot.getChildrenCount());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void countFirebaseValues() {
+//
+//        mDatabaseReference.child("cart").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
+//                    session.setCartValue((int)dataSnapshot.getChildrenCount());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        mDatabaseReference.child("wishlist").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
+//                session.setWishlistValue((int)dataSnapshot.getChildrenCount());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private boolean validatePassword(String pass) {
 

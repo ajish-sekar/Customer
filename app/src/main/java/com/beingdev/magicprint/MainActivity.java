@@ -17,6 +17,7 @@ import com.beingdev.magicprint.prodcutscategory.Bags;
 import com.beingdev.magicprint.prodcutscategory.Calendars;
 import com.beingdev.magicprint.prodcutscategory.Cards;
 import com.beingdev.magicprint.prodcutscategory.Keychains;
+import com.beingdev.magicprint.prodcutscategory.ProductsActivity;
 import com.beingdev.magicprint.prodcutscategory.Stationary;
 import com.beingdev.magicprint.prodcutscategory.Tshirts;
 import com.beingdev.magicprint.usersession.UserSession;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String, String> user;
     private String name, email, photo, mobile;
     private String  first_time;
+    Intent productIntent;
 
 
     @Override
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         //ImageSLider
         inflateImageSlider();
+
+        productIntent = new Intent(MainActivity.this, ProductsActivity.class);
 
         if (session.getFirstTime()) {
             //tap target view
@@ -408,32 +412,39 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, NotificationActivity.class));
     }
 
-    public void cardsActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Cards.class));
+    public void foodHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Food");
+        startActivity(productIntent);
     }
 
-    public void tshirtActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Tshirts.class));
+    public void clothingHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Clothing");
+        startActivity(productIntent);
     }
 
 
-    public void bagsActivity(View view) {
-
-        startActivity(new Intent(MainActivity.this, Bags.class));
+    public void handicraftHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Handicraft");
+        startActivity(productIntent);
     }
 
-    public void stationaryAcitivity(View view) {
-
-        startActivity(new Intent(MainActivity.this, Stationary.class));
+    public void jewelleryHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Fashion-and-Jewellery");
+        startActivity(productIntent);
     }
 
-    public void calendarsActivity(View view) {
-
-        startActivity(new Intent(MainActivity.this, Calendars.class));
+    public void householdHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Household");
+        startActivity(productIntent);
     }
 
-    public void keychainsActivity(View view) {
+    public void beautyHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Beauty");
+        startActivity(productIntent);
+    }
 
-        startActivity(new Intent(MainActivity.this, Keychains.class));
+    public void othersHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Others");
+        startActivity(productIntent);
     }
 }

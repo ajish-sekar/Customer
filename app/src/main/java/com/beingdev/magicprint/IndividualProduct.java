@@ -2,6 +2,8 @@ package com.beingdev.magicprint;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.beingdev.magicprint.models.Product;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -44,8 +46,8 @@ public class IndividualProduct extends AppCompatActivity {
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
-    @BindView(R.id.add_to_wishlist)
-    LottieAnimationView addToWishlist;
+//    @BindView(R.id.add_to_wishlist)
+//    LottieAnimationView addToWishlist;
     @BindView(R.id.customheader)
     EditText customheader;
     @BindView(R.id.custommessage)
@@ -53,10 +55,12 @@ public class IndividualProduct extends AppCompatActivity {
 
     private String usermobile, useremail;
 
+    public static String KEY_PRODUCT = "product";
+
     private int quantity = 1;
     private UserSession session;
-    private GenericProductModel model;
-    private DatabaseReference mDatabaseReference;
+    private Product product;
+//    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +81,14 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     private void initialize() {
-        model = (GenericProductModel) getIntent().getSerializableExtra("product");
+        product = (Product) getIntent().getSerializableExtra(KEY_PRODUCT);
 
-        productprice.setText("₹ " + Float.toString(model.getCardprice()));
+        productprice.setText("₹ " + Float.toString(product.getProductPrice()));
 
-        productname.setText(model.getCardname());
-        productdesc.setText(model.getCarddiscription());
+        productname.setText(product.getProductTitle());
+        productdesc.setText(product.getProductDescription());
         quantityProductPage.setText("1");
-        Picasso.with(IndividualProduct.this).load(model.getCardimage()).into(productimage);
+        Picasso.with(IndividualProduct.this).load(product.getProductPhoto()).into(productimage);
 
         //SharedPreference for Cart Value
         session = new UserSession(getApplicationContext());
@@ -99,7 +103,7 @@ public class IndividualProduct extends AppCompatActivity {
 
         //get firebase instance
         //initializing database reference
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+//        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     public void Notifications(View view) {
@@ -125,11 +129,11 @@ public class IndividualProduct extends AppCompatActivity {
         finish();
     }
 
-    private SingleProductModel getProductObject() {
-
-        return new SingleProductModel(model.getCardid(), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage(), model.carddiscription,customheader.getText().toString(),custommessage.getText().toString());
-
-    }
+//    private SingleProductModel getProductObject() {
+//
+//        return new SingleProductModel(model.getCardid(), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage(), model.carddiscription,customheader.getText().toString(),custommessage.getText().toString());
+//
+//    }
 
     public void decrement(View view) {
         if (quantity > 1) {
@@ -139,11 +143,11 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     public void increment(View view) {
-        if (quantity < 500) {
+        if (quantity < product.getProductStock()) {
             quantity++;
             quantityProductPage.setText(String.valueOf(quantity));
         } else {
-            Toasty.error(IndividualProduct.this, "Product Count Must be less than 500", Toast.LENGTH_LONG).show();
+            Toasty.error(IndividualProduct.this, "No more of the product is available", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -180,37 +184,37 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void addToCart(View view) {
 
-        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-
-            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }else{
-
-            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
-            session.increaseCartValue();
-            Log.e("Cart Value IP", session.getCartValue() + " ");
-            Toasty.success(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
-        }
+//        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
+//
+//            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//        }else{
+//
+//            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
+//            session.increaseCartValue();
+//            Log.e("Cart Value IP", session.getCartValue() + " ");
+//            Toasty.success(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     public void addToWishList(View view) {
 
-        addToWishlist.playAnimation();
-        mDatabaseReference.child("wishlist").child(usermobile).push().setValue(getProductObject());
-        session.increaseWishlistValue();
+//        addToWishlist.playAnimation();
+//        mDatabaseReference.child("wishlist").child(usermobile).push().setValue(getProductObject());
+//        session.increaseWishlistValue();
     }
 
     public void goToCart(View view) {
 
-        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-
-            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }else {
-            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
-            session.increaseCartValue();
-            startActivity(new Intent(IndividualProduct.this, Cart.class));
-            finish();
-        }
+//        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
+//
+//            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//        }else {
+//            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
+//            session.increaseCartValue();
+//            startActivity(new Intent(IndividualProduct.this, Cart.class));
+//            finish();
+//        }
     }
 }

@@ -218,14 +218,14 @@
                     android:weightSum="2"
                     android:onClick="addToWishList">
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/add_to_wishlist"
-                        android:layout_width="40dp"
-                        app:lottie_fileName="heart.json"
-                        android:layout_height="40dp"
-                        android:foregroundGravity="center"
-                        android:src="@drawable/cartempty"
-                        android:visibility="visible"/>
+<!--                    <com.airbnb.lottie.LottieAnimationView-->
+<!--                        android:id="@+id/add_to_wishlist"-->
+<!--                        android:layout_width="40dp"-->
+<!--                        app:lottie_fileName="heart.json"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:foregroundGravity="center"-->
+<!--                        android:src="@drawable/cartempty"-->
+<!--                        android:visibility="visible"/>-->
 
                     <TextView android:id="@+id/text_action3"
                         android:layout_width="wrap_content"
