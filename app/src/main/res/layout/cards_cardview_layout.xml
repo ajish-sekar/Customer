@@ -28,10 +28,10 @@
                     android:padding="5dp"
                     android:id="@+id/cardimage"
                     android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:src="@drawable/visitingcard"
                     android:scaleType="fitCenter"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="150dp"/>
 
             </RelativeLayout>
 
@@ -43,9 +43,9 @@
                 android:paddingRight="4dp"/>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_weight=".8">
 
@@ -53,26 +53,23 @@
                     android:id="@+id/cardcategory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="left"
                     android:layout_marginLeft="10dp"
                     android:textSize="20sp"
                     android:textColor="#424242"
                     android:padding="5dp"
-                    android:text="Product"
-                    android:layout_weight="0.5"/>
+                    android:text="Product" />
 
 
                 <TextView
                     android:id="@+id/cardprice"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="#424242"
                     android:layout_marginRight="10dp"
                     android:textSize="15sp"
                     android:padding="5dp"
-                    android:text="Price"
-                    android:layout_weight="0.5"/>
+                    android:text="Price"/>
 
             </LinearLayout>
         </LinearLayout>

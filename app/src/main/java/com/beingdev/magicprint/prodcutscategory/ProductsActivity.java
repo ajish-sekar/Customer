@@ -10,6 +10,7 @@ import retrofit2.Response;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -75,7 +76,6 @@ public class ProductsActivity extends AppCompatActivity {
         Call<List<Product>> call = ApiUtil.getService().getProductsinCategory(category);
 
 //        Call<List<Product>> call = ApiUtil.getService().getProducts();
-
 
         call.enqueue(new Callback<List<Product>>() {
             @Override

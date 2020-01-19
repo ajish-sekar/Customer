@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-
     @SerializedName("product_id")
     @Expose
     private Integer productId;
@@ -18,7 +17,7 @@ public class Product implements Serializable {
     private String productCategory;
     @SerializedName("product_price")
     @Expose
-    private Integer productPrice;
+    private Float productPrice;
     @SerializedName("product_description")
     @Expose
     private String productDescription;
@@ -68,11 +67,11 @@ public class Product implements Serializable {
         this.productCategory = productCategory;
     }
 
-    public Integer getProductPrice() {
+    public Float getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public void setProductPrice(Float productPrice) {
         this.productPrice = productPrice;
     }
 
