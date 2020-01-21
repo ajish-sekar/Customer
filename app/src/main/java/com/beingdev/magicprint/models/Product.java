@@ -41,7 +41,7 @@ public class Product implements Serializable {
     private String updated;
     @SerializedName("seller")
     @Expose
-    private Integer seller;
+    private ProductSeller seller;
 
     public Integer getProductId() {
         return productId;
@@ -131,11 +131,11 @@ public class Product implements Serializable {
         this.updated = updated;
     }
 
-    public Integer getSeller() {
+    public ProductSeller getSeller() {
         return seller;
     }
 
-    public void setSeller(Integer seller) {
+    public void setSeller(ProductSeller seller) {
         this.seller = seller;
     }
 

@@ -9,97 +9,64 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.beingdev.magicprint.Cart;
-import com.beingdev.magicprint.NotificationActivity;
 import com.beingdev.magicprint.R;
 import com.beingdev.magicprint.api.ApiUtil;
 import com.beingdev.magicprint.models.Product;
-import com.beingdev.magicprint.networksync.CheckInternetConnection;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsActivity extends AppCompatActivity {
-
-    public static String KEY_CATEGORY = "category";
+public class SearchProductActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LottieAnimationView tv_no_item;
     StaggeredGridLayoutManager layoutManager;
     ProductsAdapter adapter;
     View container;
+    TextView noResultsTv;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-
-        inflater.inflate(R.menu.menu_search,menu);
-
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.product_search).getActionView();
-
-        ComponentName cn = new ComponentName(this, SearchProductActivity.class);
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(cn));
-
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
-
-    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products);
+        setContentView(R.layout.activity_search_product);
 
-        Toolbar toolbar = findViewById(R.id.products_toolbar);
+        Toolbar toolbar = findViewById(R.id.search_products_toolbar);
         setSupportActionBar(toolbar);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        //check Internet Connection
-        new CheckInternetConnection(this).checkConnection();
-
-        //Initializing our Recyclerview
-        recyclerView = findViewById(R.id.products_recycler_view);
-        tv_no_item = findViewById(R.id.products_tv_no_cards);
-        container = findViewById(R.id.products_layout);
+        recyclerView = findViewById(R.id.search_products_recycler_view);
+        tv_no_item = findViewById(R.id.search_products_tv_no_cards);
+        container = findViewById(R.id.search_products_layout);
+        noResultsTv = findViewById(R.id.search_no_results);
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        Intent intent = getIntent();
-
-        category = intent.getStringExtra(KEY_CATEGORY);
-
-        fetchProducts(category);
+        handleIntent(getIntent());
 
     }
 
-    void fetchProducts(String category){
+    void searchProducts(String query){
+        Call<List<Product>> call = ApiUtil.getService().searchProducts(query);
 
-        Call<List<Product>> call = ApiUtil.getService().getProductsinCategory(category);
-
-//        Call<List<Product>> call = ApiUtil.getService().getProducts();
 
         call.enqueue(new Callback<List<Product>>() {
             @Override
@@ -111,16 +78,15 @@ public class ProductsActivity extends AppCompatActivity {
                     ArrayList<Product> products = new ArrayList<>(response.body());
                     adapter = new ProductsAdapter(products,getApplicationContext());
                     recyclerView.setAdapter(adapter);
+                    if(products.size()==0){
+                        noResultsTv.setVisibility(View.VISIBLE);
+                    }else {
+                        noResultsTv.setVisibility(View.GONE);
+                    }
 
                 }else{
                     Toast.makeText(getApplicationContext(),"Please Try Again",Toast.LENGTH_SHORT).show();
                     Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
-                            .setAction("Try Again", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fetchProducts(category);
-                                }
-                            })
                             .show();
                 }
             }
@@ -132,24 +98,26 @@ public class ProductsActivity extends AppCompatActivity {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
-                        .setAction("Try Again", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fetchProducts(category);
-                            }
-                        })
                         .show();
             }
         });
     }
 
-    public void viewCart(View view) {
-        startActivity(new Intent(ProductsActivity.this, Cart.class));
-        finish();
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        handleIntent(intent);
     }
 
-    public void Notifications(View view) {
-        startActivity(new Intent(ProductsActivity.this, NotificationActivity.class));
-        finish();
+    private void handleIntent(Intent intent){
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            searchProducts(query);
+
+        }
+
+
     }
 }
+
