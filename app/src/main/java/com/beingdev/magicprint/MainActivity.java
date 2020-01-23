@@ -1,5 +1,8 @@
 package com.beingdev.magicprint;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -7,8 +10,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +25,7 @@ import com.beingdev.magicprint.prodcutscategory.Calendars;
 import com.beingdev.magicprint.prodcutscategory.Cards;
 import com.beingdev.magicprint.prodcutscategory.Keychains;
 import com.beingdev.magicprint.prodcutscategory.ProductsActivity;
+import com.beingdev.magicprint.prodcutscategory.SearchProductActivity;
 import com.beingdev.magicprint.prodcutscategory.Stationary;
 import com.beingdev.magicprint.prodcutscategory.Tshirts;
 import com.beingdev.magicprint.usersession.UserSession;
@@ -92,6 +100,24 @@ public class MainActivity extends AppCompatActivity {
             tapview();
             session.setFirstTime(false);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.menu_search,menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.product_search).getActionView();
+
+        ComponentName cn = new ComponentName(this, SearchProductActivity.class);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(cn));
+
+        return true;
     }
 
     private void tapview() {
