@@ -73,7 +73,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/WhiteTheme" />
+            android:theme="@style/WhiteTheme" >
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".prodcutscategory.SearchProductActivity" />
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
