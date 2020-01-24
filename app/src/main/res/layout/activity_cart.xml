@@ -97,13 +97,6 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/startPayment"
-        android:text="GO TO PAYMENT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/tv_no_cards"
