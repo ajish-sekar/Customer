@@ -3,6 +3,9 @@ package com.beingdev.magicprint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.beingdev.magicprint.api.ApiUtil;
+import com.beingdev.magicprint.models.CartPostResponse;
+import com.beingdev.magicprint.models.CartRequest;
 import com.beingdev.magicprint.models.Product;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +31,11 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IndividualProduct extends AppCompatActivity {
 
@@ -53,7 +61,11 @@ public class IndividualProduct extends AppCompatActivity {
     @BindView(R.id.custommessage)
     EditText custommessage;
 
+    @BindView(R.id.activity_item_details)
+    View container;
+
     private String usermobile, useremail;
+    private int userId;
 
     public static String KEY_PRODUCT = "product";
 
@@ -97,6 +109,7 @@ public class IndividualProduct extends AppCompatActivity {
         session.isLoggedIn();
         usermobile = session.getUserDetails().get(UserSession.KEY_MOBiLE);
         useremail = session.getUserDetails().get(UserSession.KEY_EMAIL);
+        userId = 1;
 
         //setting textwatcher for no of items field
         quantityProductPage.addTextChangedListener(productcount);
@@ -184,17 +197,37 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void addToCart(View view) {
 
-//        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-//
-//            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show();
-//        }else{
-//
-//            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
-//            session.increaseCartValue();
-//            Log.e("Cart Value IP", session.getCartValue() + " ");
-//            Toasty.success(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
-//        }
+
+        Call<CartPostResponse> call = ApiUtil.getService().addToCart(new CartRequest(quantity,userId,product.getProductId()));
+
+        call.enqueue(new Callback<CartPostResponse>() {
+            @Override
+            public void onResponse(Call<CartPostResponse> call, Response<CartPostResponse> response) {
+                if(response.isSuccessful()){
+                    Snackbar.make(container,"Added To Cart",Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                            .setAction("Try Again", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    addToCart(view);
+                                }
+                            }).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartPostResponse> call, Throwable t) {
+                Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                        .setAction("Try Again", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                addToCart(view);
+                            }
+                        }).show();
+            }
+        });
+
     }
 
     public void addToWishList(View view) {
