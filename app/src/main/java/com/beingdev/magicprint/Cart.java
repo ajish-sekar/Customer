@@ -219,6 +219,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Cart",t.getMessage());
                 Snackbar.make(container,"Error Deleting",Snackbar.LENGTH_SHORT).show();
             }
         });

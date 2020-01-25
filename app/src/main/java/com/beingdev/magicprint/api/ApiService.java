@@ -42,6 +42,6 @@ public interface ApiService {
     @PUT("/cart/{cart_id}")
     Call<CartPostResponse> updateCart(@Body CartRequest cart);
 
-    @DELETE("/cart/{cart_id")
-    Call<ResponseBody> deleteCart(@Query("cart_id") int cartId);
+    @DELETE("/cart/{cart_id}")
+    Call<ResponseBody> deleteCart(@Path("cart_id") int cartId);
 }
