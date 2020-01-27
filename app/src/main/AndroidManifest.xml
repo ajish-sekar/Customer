@@ -16,12 +16,16 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".prodcutscategory.SearchProductActivity"
-            android:theme="@style/WhiteTheme"
-            >
+        <activity android:name=".orders.OrdersActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/WhiteTheme"></activity>
+        <activity
+            android:name=".prodcutscategory.SearchProductActivity"
+            android:theme="@style/WhiteTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -30,7 +34,6 @@
             android:name=".prodcutscategory.ProductsActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/WhiteTheme">
-
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".prodcutscategory.SearchProductActivity" />
@@ -73,7 +76,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/WhiteTheme" >
+            android:theme="@style/WhiteTheme">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".prodcutscategory.SearchProductActivity" />

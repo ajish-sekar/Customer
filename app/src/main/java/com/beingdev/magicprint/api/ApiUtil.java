@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiUtil {
     private static ApiService service;
 //    private static String baseUrl = "http://localhost:8000";
-    private static String baseUrl = "http://10.255.241.250:8000";
+    private static String baseUrl = "http://thirumathikart.nitt.edu:8000";
 
 
     private static void createService() {
