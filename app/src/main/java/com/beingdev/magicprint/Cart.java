@@ -65,7 +65,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Cart");

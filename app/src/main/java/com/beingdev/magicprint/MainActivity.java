@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
+import com.beingdev.magicprint.orders.OrdersActivity;
 import com.beingdev.magicprint.prodcutscategory.Bags;
 import com.beingdev.magicprint.prodcutscategory.Calendars;
 import com.beingdev.magicprint.prodcutscategory.Cards;
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.home);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName(R.string.myprofile).withIcon(R.drawable.profile);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.wishlist).withIcon(R.drawable.wishlist);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.cart).withIcon(R.drawable.cart);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.myorders).withIcon(R.drawable.orders);
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
 
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
@@ -300,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(MainActivity.this, Wishlist.class));
                                 break;
                             case 4:
-                                startActivity(new Intent(MainActivity.this, Cart.class));
+                                startActivity(new Intent(MainActivity.this, OrdersActivity.class));
                                 break;
                             case 5:
                                 session.logoutUser();

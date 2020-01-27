@@ -3,6 +3,7 @@ package com.beingdev.magicprint.api;
 import com.beingdev.magicprint.models.CartModel;
 import com.beingdev.magicprint.models.CartPostResponse;
 import com.beingdev.magicprint.models.CartRequest;
+import com.beingdev.magicprint.models.OrdersModel;
 import com.beingdev.magicprint.models.Product;
 
 import java.util.List;
@@ -44,4 +45,7 @@ public interface ApiService {
 
     @DELETE("/cart/{cart_id}")
     Call<ResponseBody> deleteCart(@Path("cart_id") int cartId);
+
+    @GET("/orders")
+    Call<List<OrdersModel>> getOrders(@Query("customer_id") int customerId);
 }
