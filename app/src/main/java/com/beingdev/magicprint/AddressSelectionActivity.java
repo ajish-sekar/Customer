@@ -18,11 +18,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.beingdev.magicprint.api.ApiUtil;
 import com.beingdev.magicprint.models.AddressModel;
 import com.beingdev.magicprint.models.CartModel;
+import com.beingdev.magicprint.models.CheckoutRequest;
+import com.beingdev.magicprint.models.CheckoutResponse;
 import com.beingdev.magicprint.usersession.UserSession;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -60,7 +63,7 @@ public class AddressSelectionActivity extends AppCompatActivity {
     AddressAdapter adapter;
     private UserSession session;
     private HashMap<String,String> user;
-    private String name,email,photo,mobile;
+    private String name,email,photo,mobile,token;
     int userId;
 
     @Override
@@ -108,6 +111,47 @@ public class AddressSelectionActivity extends AppCompatActivity {
             Intent intent = new Intent(AddressSelectionActivity.this,AddAddressActivity.class);
             intent.putExtra(KEY_CUSTOMER_ID,userId);
             startActivityForResult(intent,requestCode);
+        });
+
+        payBtn.setOnClickListener(v -> {
+            int addressId = adapter.getSelectedId();
+            if(addressId == -1){
+                Snackbar.make(container,"Please Select an Address",Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            CheckoutRequest request = new CheckoutRequest();
+            request.setAddressId(addressId);
+            request.setCustomerId(userId);
+            Call<CheckoutResponse> call = ApiUtil.getService().checkout(request);
+            payBtn.setEnabled(false);
+            payBtn.setText("Processing...");
+
+            call.enqueue(new Callback<CheckoutResponse>() {
+                @Override
+                public void onResponse(Call<CheckoutResponse> call, Response<CheckoutResponse> response) {
+                    payBtn.setEnabled(true);
+                    payBtn.setText("Proceed to Payment");
+                    if(response.isSuccessful()){
+                        CheckoutResponse body = response.body();
+                        if(body.getCode()==200){
+                            Toast.makeText(getApplicationContext(),"Order Placed Successfully",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddressSelectionActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Snackbar.make(container,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CheckoutResponse> call, Throwable t) {
+                    payBtn.setEnabled(true);
+                    payBtn.setText("Proceed to Payment");
+                    Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT).show();
+                }
+            });
         });
 
 
@@ -182,6 +226,11 @@ public class AddressSelectionActivity extends AppCompatActivity {
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
-        userId = 12;
+        String id = user.get(UserSession.KEY_ID);
+        if(id!=null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }
+
+        token = user.get(UserSession.KEY_TOKEN);
     }
 }

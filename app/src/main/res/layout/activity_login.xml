@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/gradient_background"
-    tools:context="com.beingdev.magicprint.LoginActivity">
+    tools:context="com.beingdev.magicprint.LoginActivity"
+    android:id="@+id/login_layout">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,7 +46,8 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Email"
+                    android:hint="Enter Number"
+                    android:inputType="phone"
                     android:textColor="#34495e"/>
 
             </com.github.florent37.materialtextfield.MaterialTextField>

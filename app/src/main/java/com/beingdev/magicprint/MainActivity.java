@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
     //to get user session data
     private UserSession session;
     private HashMap<String, String> user;
-    private String name, email, photo, mobile;
+    private String name, email, photo, mobile,token;
+    private int userId;
     private String  first_time;
     Intent productIntent;
 
@@ -207,6 +208,12 @@ public class MainActivity extends AppCompatActivity {
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
+        String id = user.get(UserSession.KEY_ID);
+        if(id!=null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }
+
+        token = user.get(UserSession.KEY_TOKEN);
     }
 
 

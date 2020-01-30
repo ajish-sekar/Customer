@@ -5,23 +5,31 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.beingdev.magicprint.api.ApiUtil;
+import com.beingdev.magicprint.models.Customer;
+import com.beingdev.magicprint.models.LoginRequest;
+import com.beingdev.magicprint.models.LoginResponse;
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
-import com.beingdev.magicprint.networksync.LoginRequest;
 import com.beingdev.magicprint.usersession.UserSession;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,12 +44,13 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtemail,edtpass;
-    private String email,pass,sessionmobile;
+    private String email,pass,sessionmobile,number;
     private TextView appname,forgotpass,registernow;
     private RequestQueue requestQueue;
     private UserSession session;
     public static final String TAG = "MyTag";
     private int cartcount, wishlistcount;
+    RelativeLayout container;
 
     //Getting reference to Firebase Database
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -62,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         edtemail= findViewById(R.id.email);
         edtpass= findViewById(R.id.password);
 
+        container = findViewById(R.id.login_layout);
+
         Bundle registerinfo=getIntent().getExtras();
         if (registerinfo!=null) {
                 edtemail.setText(registerinfo.getString("email"));
@@ -76,8 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         registernow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,Register.class));
-                finish();
+//                startActivity(new Intent(LoginActivity.this,Register.class));
+//                finish();
             }
         });
 
@@ -88,28 +99,91 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(LoginActivity.this,ForgotPassword.class));
+//                startActivity(new Intent(LoginActivity.this,ForgotPassword.class));
             }
         });
+
+
 
 
         //Validating login details
         Button button=findViewById(R.id.login_button);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+        button.setOnClickListener(v -> {
+            number = edtemail.getText().toString();
+            pass = edtpass.getText().toString();
+
+            boolean isValid = true;
+            if(number==null || number.length()==0){
+                edtemail.setError("Number is Required");
+                isValid = false;
+            }else {
+                edtemail.setError("");
+            }
+
+            if(pass==null || pass.length()==0){
+                edtpass.setError("Password is Required");
+                isValid = false;
+            }else {
+                edtpass.setError("");
+            }
+
+            if(!isValid){
+                return;
+            }
+
+            Call<LoginResponse> call = ApiUtil.getService().login(new LoginRequest(number,pass));
+
+            final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    progressDialog.dismiss();
+                    if(response.isSuccessful()){
+                        if(response.code()==200){
+                            LoginResponse loginResponse = response.body();
+                            Customer user = loginResponse.getUser();
+                            session.createLoginSession(user.getCustomerFirstName(),user.getCustomerEmail(),
+                                    user.getCustomerContact(),user.getCustomerProfilePic(),
+                                    user.getId(),user.getToken());
+                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Snackbar.make(container,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    progressDialog.dismiss();
+                    Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //            Replace this later
-                session.createLoginSession("test","test@test.com","9876543210","");
+//                session.createLoginSession("test","test@test.com","9876543210","");
 
                 //count value of firebase cart and wishlist
 //                                    countFirebaseValues();
 
-                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(loginSuccess);
-                finish();
+//                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(loginSuccess);
+//                finish();
 
-                return;
 
 //                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
                 //dummy login
@@ -185,10 +259,10 @@ public class LoginActivity extends AppCompatActivity {
 //                    requestQueue.add(loginRequest);
 //                }
 
-            }
-        });
-
-
+//            }
+//        });
+//
+//
     }
 
 //    private void countFirebaseValues() {

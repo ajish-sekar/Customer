@@ -61,7 +61,7 @@ public class IndividualProduct extends AppCompatActivity {
     @BindView(R.id.activity_item_details)
     View container;
 
-    private String usermobile, useremail;
+    private String usermobile, useremail, token;
     private int userId;
 
     public static String KEY_PRODUCT = "product";
@@ -106,8 +106,12 @@ public class IndividualProduct extends AppCompatActivity {
         session.isLoggedIn();
         usermobile = session.getUserDetails().get(UserSession.KEY_MOBiLE);
         useremail = session.getUserDetails().get(UserSession.KEY_EMAIL);
-        userId = 12;
+        String id = session.getUserDetails().get(UserSession.KEY_ID);
+        if(id!=null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }
 
+        token = session.getUserDetails().get(UserSession.KEY_TOKEN);
         //setting textwatcher for no of items field
         quantityProductPage.addTextChangedListener(productcount);
 

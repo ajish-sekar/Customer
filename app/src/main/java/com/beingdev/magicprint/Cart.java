@@ -43,7 +43,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
     //to get user session data
     private UserSession session;
     private HashMap<String,String> user;
-    private String name,email,photo,mobile;
+    private String name,email,photo,mobile,token;
     private RecyclerView recyclerView;
     private CartAdapter adapter;
     private List<CartModel> products;
@@ -273,7 +273,13 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
-        userId = 12;
+        String id = user.get(UserSession.KEY_ID);
+        if(id!= null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }else {
+            userId = 0;
+        }
+        token = user.get(UserSession.KEY_TOKEN);
     }
 
     @Override
