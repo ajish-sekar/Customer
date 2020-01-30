@@ -15,7 +15,7 @@ public class Customer {
     private String customerLastName;
     @SerializedName("customer_email")
     @Expose
-    private Object customerEmail;
+    private String customerEmail;
     @SerializedName("customer_date_joined")
     @Expose
     private String customerDateJoined;
@@ -25,9 +25,12 @@ public class Customer {
     @SerializedName("customer_profile_pic")
     @Expose
     private String customerProfilePic;
-    @SerializedName("customer_shipping_address")
+    @SerializedName("token")
     @Expose
-    private Integer customerShippingAddress;
+    private String token;
+    @SerializedName("is_verified")
+    @Expose
+    private Boolean isVerified;
 
     public Integer getId() {
         return id;
@@ -53,11 +56,11 @@ public class Customer {
         this.customerLastName = customerLastName;
     }
 
-    public Object getCustomerEmail() {
+    public String getCustomerEmail() {
         return customerEmail;
     }
 
-    public void setCustomerEmail(Object customerEmail) {
+    public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
 
@@ -85,11 +88,20 @@ public class Customer {
         this.customerProfilePic = customerProfilePic;
     }
 
-    public Integer getCustomerShippingAddress() {
-        return customerShippingAddress;
+    public String getToken() {
+        return token;
     }
 
-    public void setCustomerShippingAddress(Integer customerShippingAddress) {
-        this.customerShippingAddress = customerShippingAddress;
+    public void setToken(String token) {
+        this.token = token;
     }
+
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
+
 }

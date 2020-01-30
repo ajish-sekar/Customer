@@ -38,6 +38,8 @@ import java.util.List;
 
 public class Cart extends AppCompatActivity implements CartAdapter.CartInterface {
 
+    public static String KEY_CART="cart";
+
     //to get user session data
     private UserSession session;
     private HashMap<String,String> user;
@@ -47,6 +49,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
     private List<CartModel> products;
     private StaggeredGridLayoutManager mLayoutManager;
     View container;
+    TextView noCart,checkoutBtn;
 
     //Getting reference to Firebase Database
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -91,6 +94,9 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
         tv_no_item = findViewById(R.id.tv_no_cards);
         activitycartlist = findViewById(R.id.activity_cart_list);
         emptycart = findViewById(R.id.empty_cart);
+        noCart = findViewById(R.id.no_cart_tv);
+        checkoutBtn = findViewById(R.id.text_action_bottom2);
+        checkoutBtn.setVisibility(View.GONE);
         cartcollect = new ArrayList<>();
 
         if (recyclerView != null) {
@@ -125,6 +131,15 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
                     products = response.body();
                     adapter = new CartAdapter(new ArrayList<>(products),getApplicationContext(),Cart.this);
                     recyclerView.setAdapter(adapter);
+                    if(products.size()==0){
+                        recyclerView.setVisibility(View.GONE);
+                        noCart.setVisibility(View.VISIBLE);
+                        checkoutBtn.setVisibility(View.GONE);
+                    }else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        noCart.setVisibility(View.GONE);
+                        checkoutBtn.setVisibility(View.VISIBLE);
+                    }
                 }else {
                     Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
                             .setAction("Try Again", new View.OnClickListener() {
@@ -195,12 +210,8 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
     }
 
     public void checkout(View view) {
-        Intent intent = new Intent(Cart.this,OrderDetails.class);
-        intent.putExtra("totalprice",Float.toString(totalcost));
-        intent.putExtra("totalproducts",Integer.toString(totalproducts));
-        intent.putExtra("cartproducts",cartcollect);
+        Intent intent = new Intent(Cart.this,AddressSelectionActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -262,7 +273,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
-        userId = 1;
+        userId = 12;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.beingdev.magicprint.api;
 
+import com.beingdev.magicprint.models.AddressModel;
+import com.beingdev.magicprint.models.AddressRequest;
 import com.beingdev.magicprint.models.CartModel;
 import com.beingdev.magicprint.models.CartPostResponse;
 import com.beingdev.magicprint.models.CartRequest;
@@ -48,4 +50,10 @@ public interface ApiService {
 
     @GET("/orders")
     Call<List<OrdersModel>> getOrders(@Query("customer_id") int customerId);
+
+    @GET("/customers/address")
+    Call<List<AddressModel>> getAddress(@Query("customer_id") int customerId);
+
+    @POST("/customers/address/")
+    Call<AddressModel> addAddress(@Body AddressRequest address);
 }
