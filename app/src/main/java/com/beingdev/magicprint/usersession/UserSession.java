@@ -48,6 +48,10 @@ public class UserSession {
     // user avatar (make variable public to access from outside)
     public static final String KEY_PHOTO = "photo";
 
+    public static final String KEY_TOKEN = "token";
+
+    public static final String KEY_ID = "customer_id";
+
     // number of items in our cart
     public static final String KEY_CART = "cartvalue";
 
@@ -67,7 +71,7 @@ public class UserSession {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String email, String mobile, String photo){
+    public void createLoginSession(String name, String email, String mobile, String photo,int customerId, String token){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -82,6 +86,10 @@ public class UserSession {
 
         // Storing image url in pref
         editor.putString(KEY_PHOTO, photo);
+
+        editor.putInt(KEY_ID,customerId);
+
+        editor.putString(KEY_TOKEN, token);
 
         // commit changes
         editor.commit();
@@ -127,6 +135,10 @@ public class UserSession {
 
         // user avatar
         user.put(KEY_PHOTO, pref.getString(KEY_PHOTO, null)) ;
+
+        user.put(KEY_ID,pref.getInt(KEY_ID,0)+"");
+
+        user.put(KEY_TOKEN,pref.getString(KEY_TOKEN,""));
 
         // return user
         return user;

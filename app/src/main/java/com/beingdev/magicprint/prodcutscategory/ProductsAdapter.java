@@ -40,7 +40,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
 
         holder.cardname.setText(products.get(position).getProductTitle());
-        holder.cardprice.setText(products.get(position).getProductPrice()+"");
+        holder.cardprice.setText("₹"+products.get(position).getProductPrice());
         Picasso.with(context).load(products.get(position).getProductPhoto()).into(holder.cardimage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

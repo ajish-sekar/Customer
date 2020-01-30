@@ -56,15 +56,12 @@ public class IndividualProduct extends AppCompatActivity {
     EditText quantityProductPage;
 //    @BindView(R.id.add_to_wishlist)
 //    LottieAnimationView addToWishlist;
-    @BindView(R.id.customheader)
-    EditText customheader;
-    @BindView(R.id.custommessage)
-    EditText custommessage;
+    
 
     @BindView(R.id.activity_item_details)
     View container;
 
-    private String usermobile, useremail;
+    private String usermobile, useremail, token;
     private int userId;
 
     public static String KEY_PRODUCT = "product";
@@ -109,8 +106,12 @@ public class IndividualProduct extends AppCompatActivity {
         session.isLoggedIn();
         usermobile = session.getUserDetails().get(UserSession.KEY_MOBiLE);
         useremail = session.getUserDetails().get(UserSession.KEY_EMAIL);
-        userId = 1;
+        String id = session.getUserDetails().get(UserSession.KEY_ID);
+        if(id!=null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }
 
+        token = session.getUserDetails().get(UserSession.KEY_TOKEN);
         //setting textwatcher for no of items field
         quantityProductPage.addTextChangedListener(productcount);
 
@@ -239,15 +240,36 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void goToCart(View view) {
 
-//        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-//
-//            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show();
-//        }else {
-//            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
-//            session.increaseCartValue();
-//            startActivity(new Intent(IndividualProduct.this, Cart.class));
-//            finish();
-//        }
+        Call<CartPostResponse> call = ApiUtil.getService().addToCart(new CartRequest(quantity,userId,product.getProductId()));
+
+        call.enqueue(new Callback<CartPostResponse>() {
+            @Override
+            public void onResponse(Call<CartPostResponse> call, Response<CartPostResponse> response) {
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(IndividualProduct.this,Cart.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                            .setAction("Try Again", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    addToCart(view);
+                                }
+                            }).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartPostResponse> call, Throwable t) {
+                Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                        .setAction("Try Again", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                addToCart(view);
+                            }
+                        }).show();
+            }
+        });
     }
 }

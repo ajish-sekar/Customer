@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddAddressActivity"
+    android:id="@+id/new_address_container">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/add_address_toolbarwrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/add_address_toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:background="@color/colorAccent"
+            android:minHeight="?attr/actionBarSize">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="20sp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_name_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_number_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_line1_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Line 1"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_line1_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_line2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Line 2"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_line2_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_landmark_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Landmark"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_landmark_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_district_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="District"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_district_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_state_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="State"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_state_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_pincode_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pincode"
+                android:layout_margin="8dp"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_pincode_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/new_address_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Address"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/gen_white"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -16,9 +16,14 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".orders.OrdersActivity"
+        <activity android:name=".AddAddressActivity"
+            android:theme="@style/WhiteTheme" ></activity>
+        <activity android:name=".AddressSelectionActivity"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".orders.OrdersActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/WhiteTheme"></activity>
+            android:theme="@style/WhiteTheme" />
         <activity
             android:name=".prodcutscategory.SearchProductActivity"
             android:theme="@style/WhiteTheme">

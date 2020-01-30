@@ -41,7 +41,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     private UserSession session;
     private HashMap<String,String> user;
-    private String name,email,photo,mobile;
+    private String name,email,photo,mobile,token;
     private int userId;
 
     @Override
@@ -88,7 +88,12 @@ public class OrdersActivity extends AppCompatActivity {
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
-        userId = 2;
+        String id = user.get(UserSession.KEY_ID);
+        if(id!=null && id.length()!=0){
+            userId = Integer.parseInt(id);
+        }
+
+        token = user.get(UserSession.KEY_TOKEN);
     }
 
     private void fetchOrders(){
