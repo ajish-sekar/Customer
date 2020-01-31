@@ -123,7 +123,7 @@
 
                             <TextView
                                 android:layout_below="@id/visitingcards"
-                                android:text="Kitchen supplies"
+                                android:text="Food"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
@@ -225,11 +225,11 @@
                             <ImageView
                                 android:id="@+id/calendars"
                                 style="@style/homegridimage"
-                                android:src="@drawable/calendar" />
+                                android:src="@drawable/household" />
 
                             <TextView
                                 android:layout_below="@id/calendars"
-                                android:text="Household"
+                                android:text="Household supplies"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
@@ -247,11 +247,11 @@
                         <ImageView
                             android:id="@+id/keychain"
                             style="@style/homegridimage"
-                            android:src="@drawable/keychain" />
+                            android:src="@drawable/beauty" />
 
                         <TextView
                             android:layout_below="@id/keychain"
-                            android:text="Beauty"
+                            android:text="Beauty &amp; Healthcare"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -274,11 +274,33 @@
                             <ImageView
                                 android:id="@+id/othersImage"
                                 style="@style/homegridimage"
-                                android:src="@drawable/keychain" />
+                                android:src="@drawable/others" />
 
                             <TextView
                                 android:layout_below="@id/othersImage"
                                 android:text="Others.."
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        style="@style/homegridcard"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:onClick="groceryHandler">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/groceryImage"
+                                style="@style/homegridimage"
+                                android:src="@drawable/grocery" />
+
+                            <TextView
+                                android:layout_below="@id/groceryImage"
+                                android:text="Grocery.."
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>

@@ -1,0 +1,11 @@
+--2020-01-30 17:55:36--  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNE71iG-YLXjqay4Bo2EvZl_xocG9uw-oGyIMOnE97dbX_M3GEog
+Resolving encrypted-tbn0.gstatic.com (encrypted-tbn0.gstatic.com)... 172.217.163.206, 2404:6800:4007:810::200e
+Connecting to encrypted-tbn0.gstatic.com (encrypted-tbn0.gstatic.com)|172.217.163.206|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2110 (2.1K) [image/png]
+Saving to: ‘app/src/main/res/drawable/others.png’
+
+app/src/main/res/drawable/others.png     0%[                                                                           ]       0  --.-KB/s               app/src/main/res/drawable/others.png   100%[==========================================================================>]   2.06K  --.-KB/s    in 0.002s  
+
+2020-01-30 17:55:37 (920 KB/s) - ‘app/src/main/res/drawable/others.png’ saved [2110/2110]
+

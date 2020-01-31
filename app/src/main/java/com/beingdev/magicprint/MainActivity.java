@@ -481,4 +481,9 @@ public class MainActivity extends AppCompatActivity {
         productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Others");
         startActivity(productIntent);
     }
+
+    public void groceryHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Grocery");
+        startActivity(productIntent);
+    }
 }
