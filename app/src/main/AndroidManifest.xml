@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.beingdev.magicprint">
+    package="com.thirumathikart.customer">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,7 +9,7 @@
 
     <application
         android:largeHeap="true"
-        android:name=".init.CustomApplication"
+        android:name="com.thirumathikart.customer.init.CustomApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -17,16 +17,16 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddAddressActivity"
+        <activity android:name="com.thirumathikart.customer.AddAddressActivity"
             android:theme="@style/WhiteTheme" ></activity>
-        <activity android:name=".AddressSelectionActivity"
+        <activity android:name="com.thirumathikart.customer.AddressSelectionActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".orders.OrdersActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.thirumathikart.customer.orders.OrdersActivity"
+            android:parentActivityName="com.thirumathikart.customer.MainActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.SearchProductActivity"
+            android:name="com.thirumathikart.customer.prodcutscategory.SearchProductActivity"
             android:theme="@style/WhiteTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -37,14 +37,14 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".prodcutscategory.ProductsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.thirumathikart.customer.prodcutscategory.ProductsActivity"
+            android:parentActivityName="com.thirumathikart.customer.MainActivity"
             android:theme="@style/WhiteTheme">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".prodcutscategory.SearchProductActivity" />
         </activity>
-        <activity android:name=".PaymentActivity" />
+        <activity android:name="com.thirumathikart.customer.PaymentActivity" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
@@ -67,7 +67,7 @@
             android:value="DISABLE" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.thirumathikart.customer.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -77,72 +77,72 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name="com.thirumathikart.customer.Register"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.thirumathikart.customer.MainActivity"
             android:theme="@style/WhiteTheme">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".prodcutscategory.SearchProductActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.thirumathikart.customer.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".HelpCenter"
+            android:name="com.thirumathikart.customer.HelpCenter"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Profile"
+            android:name="com.thirumathikart.customer.Profile"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Cart"
+            android:name="com.thirumathikart.customer.Cart"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".UpdateData"
+            android:name="com.thirumathikart.customer.UpdateData"
             android:theme="@style/WhiteTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ForgotPassword"
+            android:name="com.thirumathikart.customer.ForgotPassword"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".NotificationActivity"
+            android:name="com.thirumathikart.customer.NotificationActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Cards"
+            android:name="com.thirumathikart.customer.prodcutscategory.Cards"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".IndividualProduct"
+            android:name="com.thirumathikart.customer.IndividualProduct"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Wishlist"
+            android:name="com.thirumathikart.customer.Wishlist"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".OrderDetails"
+            android:name="com.thirumathikart.customer.OrderDetails"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".OrderPlaced"
+            android:name="com.thirumathikart.customer.OrderPlaced"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Tshirts"
+            android:name="com.thirumathikart.customer.prodcutscategory.Tshirts"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Bags"
+            android:name="com.thirumathikart.customer.prodcutscategory.Bags"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Calendars"
+            android:name="com.thirumathikart.customer.prodcutscategory.Calendars"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Keychains"
+            android:name="com.thirumathikart.customer.prodcutscategory.Keychains"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Stationary"
+            android:name="com.thirumathikart.customer.prodcutscategory.Stationary"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.thirumathikart.customer.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
