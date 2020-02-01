@@ -1,11 +1,16 @@
 package com.thirumathikart.customer;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
             //tap target view
             tapview();
             session.setFirstTime(false);
+        }
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
         }
     }
 

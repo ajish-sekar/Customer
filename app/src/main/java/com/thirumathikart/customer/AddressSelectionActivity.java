@@ -119,38 +119,40 @@ public class AddressSelectionActivity extends AppCompatActivity {
                 return;
             }
 
-            CheckoutRequest request = new CheckoutRequest();
-            request.setAddressId(addressId);
-            request.setCustomerId(userId);
-            Call<CheckoutResponse> call = ApiUtil.getService().checkout(request);
-            payBtn.setEnabled(false);
-            payBtn.setText("Processing...");
-
-            call.enqueue(new Callback<CheckoutResponse>() {
-                @Override
-                public void onResponse(Call<CheckoutResponse> call, Response<CheckoutResponse> response) {
-                    payBtn.setEnabled(true);
-                    payBtn.setText("Proceed to Payment");
-                    if(response.isSuccessful()){
-                        CheckoutResponse body = response.body();
-                        if(body.getCode()==200){
-                            Toast.makeText(getApplicationContext(),"Order Placed Successfully",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddressSelectionActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else {
-                            Snackbar.make(container,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CheckoutResponse> call, Throwable t) {
-                    payBtn.setEnabled(true);
-                    payBtn.setText("Proceed to Payment");
-                    Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT).show();
-                }
-            });
+//            CheckoutRequest request = new CheckoutRequest();
+//            request.setAddressId(addressId);
+//            request.setCustomerId(userId);
+//            Call<CheckoutResponse> call = ApiUtil.getService().checkout(request);
+//            payBtn.setEnabled(false);
+//            payBtn.setText("Processing...");
+//
+//            call.enqueue(new Callback<CheckoutResponse>() {
+//                @Override
+//                public void onResponse(Call<CheckoutResponse> call, Response<CheckoutResponse> response) {
+//                    payBtn.setEnabled(true);
+//                    payBtn.setText("Proceed to Payment");
+//                    if(response.isSuccessful()){
+//                        CheckoutResponse body = response.body();
+//                        if(body.getCode()==200){
+//                            Toast.makeText(getApplicationContext(),"Order Placed Successfully",Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(AddressSelectionActivity.this,MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }else {
+//                            Snackbar.make(container,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<CheckoutResponse> call, Throwable t) {
+//                    payBtn.setEnabled(true);
+//                    payBtn.setText("Proceed to Payment");
+//                    Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT).show();
+//                }
+//            });
+            Intent intent = new Intent(AddressSelectionActivity.this,OrderReviewActivity.class);
+            startActivity(intent);
         });
 
 
