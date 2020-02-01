@@ -14,16 +14,21 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.thirumathikart.customer.api.ApiUtil;
+import com.thirumathikart.customer.models.RegisterModel;
+import com.thirumathikart.customer.models.RegisterResponse;
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.thirumathikart.customer.networksync.RegisterRequest;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
@@ -44,12 +49,18 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
-    private String check,name,email,password,mobile,profile;
+    private EditText edtfirstname, edtlastname, edtemail, edtpass, edtcnfpass, edtnumber,edtotp;
+    private String check,firstname,lastname,email,password,mobile,profile;
     CircleImageView image;
+    Button register,otpRequest,otpVerify;
+    LinearLayout otpLayout,registerLayout;
+    RelativeLayout container;
     ImageView upload;
     RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
@@ -69,141 +80,384 @@ public class Register extends AppCompatActivity {
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        upload=findViewById(R.id.uploadpic);
-        image=findViewById(R.id.profilepic);
-        edtname = findViewById(R.id.name);
+        container = findViewById(R.id.register_container);
+
+//        upload=findViewById(R.id.uploadpic);
+//        image=findViewById(R.id.profilepic);
+        edtfirstname = findViewById(R.id.first_name);
+        edtlastname = findViewById(R.id.last_name);
         edtemail = findViewById(R.id.email);
         edtpass = findViewById(R.id.password);
         edtcnfpass = findViewById(R.id.confirmpassword);
         edtnumber = findViewById(R.id.number);
+        edtotp = findViewById(R.id.otp);
 
-        edtname.addTextChangedListener(nameWatcher);
-        edtemail.addTextChangedListener(emailWatcher);
-        edtpass.addTextChangedListener(passWatcher);
-        edtcnfpass.addTextChangedListener(cnfpassWatcher);
-        edtnumber.addTextChangedListener(numberWatcher);
+        edtfirstname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        requestQueue = Volley.newRequestQueue(Register.this);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtfirstname.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtlastname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtlastname.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtnumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtnumber.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtemail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtemail.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtpass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtpass.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        edtcnfpass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtcnfpass.setError("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+//        edtname.addTextChangedListener(nameWatcher);
+//        edtemail.addTextChangedListener(emailWatcher);
+//        edtpass.addTextChangedListener(passWatcher);
+//        edtcnfpass.addTextChangedListener(cnfpassWatcher);
+//        edtnumber.addTextChangedListener(numberWatcher);
+
+//        requestQueue = Volley.newRequestQueue(Register.this);
 
         //validate user details and register user
 
-        Button button=findViewById(R.id.register);
+        register=findViewById(R.id.register);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        otpVerify = findViewById(R.id.verify_otp_btn);
+        otpRequest = findViewById(R.id.request_otp_btn);
 
-            @Override
-            public void onClick(View view) {
-                Toasty.success(Register.this,"Registering",Toast.LENGTH_SHORT,true).show();
-                //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
+        otpLayout = findViewById(R.id.otp_verify_layout);
+        registerLayout = findViewById(R.id.register_fields);
 
-                    name=edtname.getText().toString();
-                    email=edtemail.getText().toString();
-                    password=edtcnfpass.getText().toString();
-                    mobile=edtnumber.getText().toString();
+        otpRequest.setOnClickListener(v ->{
+            requestOtp();
+        });
 
+        otpVerify.setOnClickListener(v-> {
+            verifyOtp();
+        });
 
-                    final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
-                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                            .setLabel("Please wait")
-                            .setCancellable(false)
-                            .setAnimationSpeed(2)
-                            .setDimAmount(0.5f)
-                            .show();
-
-
-                    //Validation Success
-                    convertBitmapToString(profilePicture);
-                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            progressDialog.dismiss();
-
-                            Log.e("Response from server", response);
-
-                            try {
-                                if (new JSONObject(response).getBoolean("success")) {
-
-                                    Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
-
-                                    sendRegistrationEmail(name,email);
-
-
-                                } else
-                                    Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
-                            }
-                        }
-                    });
-                    requestQueue.add(registerRequest);
-                }
+        register.setOnClickListener(v -> {
+            if(verify()){
+                register();
             }
         });
+
+//        register.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Toasty.success(Register.this,"Registering",Toast.LENGTH_SHORT,true).show();
+//                //TODO AFTER VALDATION
+//                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
+//
+//                    name=edtname.getText().toString();
+//                    email=edtemail.getText().toString();
+//                    password=edtcnfpass.getText().toString();
+//                    mobile=edtnumber.getText().toString();
+//
+//
+//                    final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+//                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                            .setLabel("Please wait")
+//                            .setCancellable(false)
+//                            .setAnimationSpeed(2)
+//                            .setDimAmount(0.5f)
+//                            .show();
+//
+//
+//                    //Validation Success
+//                    convertBitmapToString(profilePicture);
+//                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, new Response.Listener<String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//                            progressDialog.dismiss();
+//
+//                            Log.e("Response from server", response);
+//
+//                            try {
+//                                if (new JSONObject(response).getBoolean("success")) {
+//
+//                                    Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
+//
+//                                    sendRegistrationEmail(name,email);
+//
+//
+//                                } else
+//                                    Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                                Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
+//                            }
+//                        }
+//                    });
+//                    requestQueue.add(registerRequest);
+//                }
+//            }
+//        });
 
         //Take already registered user to login page
 
-        final TextView loginuser=findViewById(R.id.login_now);
-        loginuser.setOnClickListener(new View.OnClickListener() {
+//        final TextView loginuser=findViewById(R.id.login_now);
+//        loginuser.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(Register.this,LoginActivity.class));
+//                finish();
+//            }
+//        });
+//
+//        //take user to reset password
+//
+//        final TextView forgotpass=findViewById(R.id.forgot_pass);
+//        forgotpass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(Register.this,ForgotPassword.class));
+//                finish();
+//            }
+//        });
+
+
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View view) {
+//
+//                Dexter.withActivity(Register.this)
+//                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        .withListener(new MultiplePermissionsListener() {
+//                            @Override
+//                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                                // check if all permissions are granted
+//                                if (report.areAllPermissionsGranted()) {
+//                                    // do you work now
+//                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                                    intent.setType("image/*");
+//                                    startActivityForResult(intent, 1000);
+//                                }
+//
+//                                // check for permanent denial of any permission
+//                                if (report.isAnyPermissionPermanentlyDenied()) {
+//                                    // permission is denied permenantly, navigate user to app settings
+//                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
+//                                            .setAction("Allow", null).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                                token.continuePermissionRequest();
+//                            }
+//                        })
+//                        .onSameThread()
+//                        .check();
+//
+//
+//
+//                //result will be available in onActivityResult which is overridden
+//            }
+//        });
+    }
+
+    private void requestOtp(){
+
+    }
+
+    private void verifyOtp(){
+
+    }
+
+    private void register(){
+        final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+        RegisterModel user = new RegisterModel();
+        user.setCustomerFirstName(firstname);
+        user.setCustomerLastName(lastname);
+        user.setCustomerContact(mobile);
+        user.setCustomerEmail(email);
+        user.setPassword(password);
+        Call<RegisterResponse> call = ApiUtil.getService().register(user);
+
+        call.enqueue(new Callback<RegisterResponse>() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Register.this,LoginActivity.class));
-                finish();
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                progressDialog.dismiss();
+                if(response.isSuccessful()){
+                    RegisterResponse body = response.body();
+                    if(body.getCode()==200){
+                        Toast.makeText(getApplicationContext(),"Registered Successfully",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Register.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Snackbar.make(container,body.getMessage(),Snackbar.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Snackbar.make(container,"An Error Occured",Snackbar.LENGTH_SHORT).show();
+                }
             }
-        });
 
-        //take user to reset password
-
-        final TextView forgotpass=findViewById(R.id.forgot_pass);
-        forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Register.this,ForgotPassword.class));
-                finish();
-            }
-        });
-
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-
-                Dexter.withActivity(Register.this)
-                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(new MultiplePermissionsListener() {
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT)
+                        .setAction("Try Again", new View.OnClickListener() {
                             @Override
-                            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                                // check if all permissions are granted
-                                if (report.areAllPermissionsGranted()) {
-                                    // do you work now
-                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    intent.setType("image/*");
-                                    startActivityForResult(intent, 1000);
-                                }
-
-                                // check for permanent denial of any permission
-                                if (report.isAnyPermissionPermanentlyDenied()) {
-                                    // permission is denied permenantly, navigate user to app settings
-                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
-                                            .setAction("Allow", null).show();
-                                }
+                            public void onClick(View v) {
+                                register();
                             }
-
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                                token.continuePermissionRequest();
-                            }
-                        })
-                        .onSameThread()
-                        .check();
-
-
-
-                //result will be available in onActivityResult which is overridden
+                        }).show();
             }
         });
+    }
+
+    private boolean verify(){
+        firstname = edtfirstname.getText().toString();
+        lastname  = edtlastname.getText().toString();
+        mobile = edtnumber.getText().toString();
+        email = edtemail.getText().toString();
+        password = edtpass.getText().toString();
+        String cnfpassword = edtpass.getText().toString();
+
+        boolean flag = true;
+
+        if(firstname==null || firstname.length()==0){
+            flag = false;
+            edtfirstname.setError("First name is required");
+        }
+
+        if(lastname==null || lastname.length()==0){
+            flag = false;
+            edtlastname.setError("Last name is required");
+        }
+
+        if(mobile==null || mobile.length()==0){
+            flag = false;
+            edtnumber.setError("Mobile number is required");
+        }
+
+        if(email==null || email.length()==0){
+            flag = false;
+            edtemail.setError("Email is required");
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            flag = false;
+            edtemail.setError("Enter valid Email");
+        }
+
+        if(password==null || password.length()==0){
+            flag = false;
+            edtpass.setError("Password is required");
+        }
+
+        if(cnfpassword==null || cnfpassword.length()==0){
+            flag = false;
+            edtcnfpass.setError("Confirm your Password");
+        }
+
+        if(!password.equals(cnfpassword)){
+            flag = false;
+            edtcnfpass.setError("Passwords Dont Match");
+        }
+
+        if(password.length()<6){
+            flag = false;
+            edtpass.setError("Password must atleast contain 6 characters");
+        }
+
+        return flag;
     }
 
     private void sendRegistrationEmail(final String name, final String emails) {
@@ -305,38 +559,38 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
-    private boolean validateName() {
-
-        check = edtname.getText().toString();
-
-        return !(check.length() < 4 || check.length() > 20);
-
-    }
+//    private boolean validateName() {
+//
+//        check = edtname.getText().toString();
+//
+//        return !(check.length() < 4 || check.length() > 20);
+//
+//    }
 
     //TextWatcher for Name -----------------------------------------------------
 
-    TextWatcher nameWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (check.length() < 4 || check.length() > 20) {
-                edtname.setError("Name Must consist of 4 to 20 characters");
-            }
-        }
-
-    };
+//    TextWatcher nameWatcher = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            //none
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            //none
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//
+//            check = s.toString();
+//
+//            if (check.length() < 4 || check.length() > 20) {
+//                edtname.setError("Name Must consist of 4 to 20 characters");
+//            }
+//        }
+//
+//    };
 
     //TextWatcher for Email -----------------------------------------------------
 

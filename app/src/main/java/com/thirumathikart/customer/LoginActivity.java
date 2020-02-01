@@ -74,21 +74,21 @@ public class LoginActivity extends AppCompatActivity {
         registernow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(LoginActivity.this,Register.class));
-//                finish();
+                startActivity(new Intent(LoginActivity.this,Register.class));
+                finish();
             }
         });
 
         //if user forgets password
-        forgotpass=findViewById(R.id.forgot_pass);
-        forgotpass.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-//                startActivity(new Intent(LoginActivity.this,ForgotPassword.class));
-            }
-        });
+//        forgotpass=findViewById(R.id.forgot_pass);
+//        forgotpass.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+////                startActivity(new Intent(LoginActivity.this,ForgotPassword.class));
+//            }
+//        });
 
 
 
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     progressDialog.dismiss();
                     if(response.isSuccessful()){
-                        if(response.code()==200){
+                        if(response.body().getCode()==200){
                             LoginResponse loginResponse = response.body();
                             Customer user = loginResponse.getUser();
                             session.createLoginSession(user.getCustomerFirstName(),user.getCustomerEmail(),
@@ -147,6 +147,8 @@ public class LoginActivity extends AppCompatActivity {
                         }else {
                             Snackbar.make(container,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
                         }
+                    }else {
+                        Snackbar.make(container,"An error occurred",Snackbar.LENGTH_SHORT).show();
                     }
                 }
 

@@ -11,6 +11,8 @@ import com.thirumathikart.customer.models.LoginRequest;
 import com.thirumathikart.customer.models.LoginResponse;
 import com.thirumathikart.customer.models.OrdersModel;
 import com.thirumathikart.customer.models.Product;
+import com.thirumathikart.customer.models.RegisterModel;
+import com.thirumathikart.customer.models.RegisterResponse;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -62,4 +65,7 @@ public interface ApiService {
 
     @POST("/cart/checkout/")
     Call<CheckoutResponse> checkout(@Body CheckoutRequest request);
+
+    @POST("/customers/register/")
+    Call<RegisterResponse> register(@Body RegisterModel user);
 }

@@ -62,7 +62,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         holder.name.setText(address.getName());
         holder.number.setText(address.getContact());
 
-        holder.address.setText(address.getLineOne()+","+address.getLineTwo()+","+address.getDistrict()+","+
+        holder.address.setText(address.getLineOne()+","+address.getLineTwo()+","+address.getLandmark()+","+
                 address.getDistrict()+","+address.getState()+","+address.getPincode());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

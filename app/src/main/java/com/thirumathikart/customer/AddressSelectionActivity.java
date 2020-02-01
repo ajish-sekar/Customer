@@ -35,6 +35,7 @@ import java.util.List;
 public class AddressSelectionActivity extends AppCompatActivity {
 
     public static String KEY_CUSTOMER_ID = "customer_id";
+    public static String KEY_ADDRESS_ID = "address_id";
     public int requestCode = 123;
 
     @BindView(R.id.add_address_btn)
@@ -152,6 +153,8 @@ public class AddressSelectionActivity extends AppCompatActivity {
 //                }
 //            });
             Intent intent = new Intent(AddressSelectionActivity.this,OrderReviewActivity.class);
+            intent.putExtra(KEY_ADDRESS_ID,addressId);
+            intent.putExtra(KEY_CUSTOMER_ID,userId);
             startActivity(intent);
         });
 

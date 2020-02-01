@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 app:mtf_cardCollapsedHeight="1dp"
                 app:mtf_labelColor="@color/colorAccent"
-                app:mtf_image="@drawable/email">
+                app:mtf_image="@android:drawable/stat_sys_phone_call">
 
                 <EditText
                     android:id="@+id/email"
@@ -96,21 +96,21 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/forgot_pass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/forgot"
-                    style="@style/fonts"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/forgot_pass"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/forgot"-->
+<!--                    style="@style/fonts"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="|"
-                    style="@style/fonts"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="|"-->
+<!--                    style="@style/fonts"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="10dp"/>-->
 
                 <TextView
                     android:id="@+id/register_now"
