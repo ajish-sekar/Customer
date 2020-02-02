@@ -16,12 +16,14 @@
             android:id="@+id/add_address_toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            android:background="@color/primary"
+            app:titleTextColor="@color/textPrimary"
             android:minHeight="?attr/actionBarSize">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"
+                android:textColor="@color/textPrimary"
                 android:textSize="20sp"/>
 
         </androidx.appcompat.widget.Toolbar>
@@ -187,8 +189,8 @@
                 android:text="Add Address"
                 android:layout_gravity="center_horizontal"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:backgroundTint="@color/primary"
-                android:textColor="@color/gen_white"/>
+                android:backgroundTint="@color/colorSecondary"
+                android:textColor="@color/textSecondary"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

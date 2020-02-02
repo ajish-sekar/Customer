@@ -16,7 +16,8 @@
             android:id="@+id/search_products_toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            android:background="@color/primary"
+            app:titleTextColor="@color/textPrimary"
             android:minHeight="?attr/actionBarSize">
 
         </androidx.appcompat.widget.Toolbar>

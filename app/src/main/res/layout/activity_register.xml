@@ -42,10 +42,11 @@
             android:hint="Mobile Number"
             app:met_iconLeft="@android:drawable/stat_sys_phone_call"
             app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/colorAccent"
-            app:met_errorColor="@color/darkWhite"
+            app:met_baseColor="@color/textPrimary"
+            app:met_errorColor="@color/textPrimary"
             app:met_clearButton="true"
-            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textPrimary"
+            app:met_primaryColor="@color/textPrimary"
             android:inputType="phone"/>
 
         <Button
@@ -71,10 +72,11 @@
                 android:hint="OTP"
                 app:met_iconLeft="@drawable/lock"
                 app:met_floatingLabel="highlight"
-                app:met_baseColor="@color/colorAccent"
-                app:met_errorColor="@color/darkWhite"
+                app:met_baseColor="@color/textPrimary"
+                app:met_errorColor="@color/textPrimary"
                 app:met_clearButton="true"
-                app:met_primaryColor="@color/colorAccent"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
                 android:inputType="number"/>
 
             <Button
@@ -126,10 +128,11 @@
                 android:hint="First Name"
                 app:met_iconLeft="@drawable/man"
                 app:met_floatingLabel="highlight"
-                app:met_baseColor="@color/colorAccent"
+                app:met_baseColor="@color/textPrimary"
                 app:met_clearButton="true"
-                app:met_primaryColor="@color/colorAccent"
-                app:met_errorColor="@color/darkWhite"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
+                app:met_errorColor="@color/textPrimary"
                 android:inputType="textPersonName"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -139,10 +142,11 @@
                 android:hint="Last Name"
                 app:met_iconLeft="@drawable/man"
                 app:met_floatingLabel="highlight"
-                app:met_baseColor="@color/colorAccent"
+                app:met_baseColor="@color/textPrimary"
                 app:met_clearButton="true"
-                app:met_primaryColor="@color/colorAccent"
-                app:met_errorColor="@color/darkWhite"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
+                app:met_errorColor="@color/textPrimary"
                 android:inputType="textPersonName"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -152,9 +156,10 @@
                 android:hint="Enter Email"
                 app:met_floatingLabel="highlight"
                 app:met_iconLeft="@android:drawable/sym_action_email"
-                app:met_baseColor="@color/colorAccent"
-                app:met_errorColor="@color/darkWhite"
-                app:met_primaryColor="@color/colorAccent"
+                app:met_baseColor="@color/textPrimary"
+                app:met_errorColor="@color/textPrimary"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
                 app:met_clearButton="true"
                 android:inputType="textEmailAddress"/>
 
@@ -166,9 +171,10 @@
                 app:met_iconLeft="@drawable/lock"
                 app:met_floatingLabel="highlight"
                 android:inputType="textPassword"
-                app:met_errorColor="@color/darkWhite"
-                app:met_baseColor="@color/colorAccent"
-                app:met_primaryColor="@color/colorAccent"
+                app:met_errorColor="@color/textPrimary"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_baseColor="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
                 app:met_clearButton="true" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -178,10 +184,11 @@
                 android:hint="Reenter Password"
                 app:met_iconLeft="@drawable/lock"
                 app:met_floatingLabel="highlight"
-                app:met_baseColor="@color/colorAccent"
+                app:met_baseColor="@color/textPrimary"
                 app:met_clearButton="true"
-                app:met_errorColor="@color/darkWhite"
-                app:met_primaryColor="@color/colorAccent"
+                app:met_textColorHint="@color/textPrimary"
+                app:met_errorColor="@color/textPrimary"
+                app:met_primaryColor="@color/textPrimary"
                 android:inputType="textPassword"/>
 
 

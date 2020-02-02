@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/gen_white"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="com.thirumathikart.customer.MainActivity">
 
@@ -17,13 +17,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/colorAccent"
+        app:titleTextColor="@color/textPrimary"
         android:gravity="left"
         style="@style/CustomTheme"
-        android:background="@color/colorAccent">
+        android:background="@color/primary">
 
         <TextView
-            android:textColor="@color/primary"
+            android:textColor="@color/textPrimary"
             android:id="@+id/appname"
             android:textSize="28sp"
             android:gravity="start"

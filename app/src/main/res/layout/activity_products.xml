@@ -16,7 +16,8 @@
             android:id="@+id/products_toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/textPrimary"
             android:minHeight="?attr/actionBarSize">
 
             <TextView
@@ -24,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:textColor="@color/textPrimary"
                 android:text="Products"/>
 
 
@@ -32,14 +34,6 @@
                 android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/notification"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
-                    android:onClick="Notifications"/>
 
 
                 <ImageView

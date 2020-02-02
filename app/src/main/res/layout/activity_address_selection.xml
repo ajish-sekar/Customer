@@ -16,7 +16,8 @@
             android:id="@+id/address_toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            android:background="@color/primary"
+            app:titleTextColor="@color/textPrimary"
             android:minHeight="?attr/actionBarSize">
 
         </androidx.appcompat.widget.Toolbar>
@@ -27,9 +28,9 @@
         android:layout_height="wrap_content"
         android:text="Add Address"
         android:layout_marginTop="8dp"
-        android:textColor="@color/gen_white"
+        android:textColor="@color/textSecondary"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/colorSecondary"
         android:padding="8dp"
         android:layout_gravity="center_horizontal"/>
     <TextView
@@ -73,9 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Proceed To Payment"
-            android:textColor="@color/gen_white"
+            android:textColor="@color/textSecondary"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/primary"/>
+            android:backgroundTint="@color/colorSecondary"/>
 
     </LinearLayout>
 
