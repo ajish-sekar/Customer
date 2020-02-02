@@ -81,6 +81,8 @@ public class AddressSelectionActivity extends AppCompatActivity {
                 AddressModel address = (AddressModel)data.getSerializableExtra(AddAddressActivity.KEY_ADDRESS);
                 if(address!=null) {
                     adapter.addAddress(address);
+                    noAddress.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
             }
         }

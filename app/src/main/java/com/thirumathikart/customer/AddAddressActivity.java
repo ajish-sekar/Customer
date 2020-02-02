@@ -153,13 +153,13 @@ public class AddAddressActivity extends AppCompatActivity {
     }
 
     void captureInput(){
-        name = nameEt.getText().toString();
-        number = numberEt.getText().toString();
-        line1 = line1Et.getText().toString();
-        line2 = line2Et.getText().toString();
-        landmark = landmarkEt.getText().toString();
-        district = districtEt.getText().toString();
-        state = stateEt.getText().toString();
+        name = nameEt.getText().toString().trim();
+        number = numberEt.getText().toString().trim();
+        line1 = line1Et.getText().toString().trim();
+        line2 = line2Et.getText().toString().trim();
+        landmark = landmarkEt.getText().toString().trim();
+        district = districtEt.getText().toString().trim();
+        state = stateEt.getText().toString().trim();
         if(!pincodeEt.getText().toString().equals("")) {
             pincode = Integer.parseInt(pincodeEt.getText().toString());
         }
