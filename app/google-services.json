@@ -1,34 +1,87 @@
 {
   "project_info": {
-    "project_number": "546206668634",
-    "firebase_url": "https://shgnitt-1d40f.firebaseio.com",
-    "project_id": "shgnitt-1d40f",
-    "storage_bucket": "shgnitt-1d40f.appspot.com"
+    "project_number": "595320109252",
+    "firebase_url": "https://thirumathikart.firebaseio.com",
+    "project_id": "thirumathikart",
+    "storage_bucket": "thirumathikart.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:546206668634:android:f957e18e7d55fc263c4563",
+        "mobilesdk_app_id": "1:595320109252:android:aca1916890d35ad7a27191",
         "android_client_info": {
           "package_name": "com.thirumathikart.customer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "546206668634-ceui8j9g9te12emcfjrnrdas2ttg7rcl.apps.googleusercontent.com",
+          "client_id": "595320109252-7q7fu3a0b28709puba31r1hus6j9ghc7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thirumathikart.customer",
+            "certificate_hash": "7d865f9bcca1e66968e20e8d6f332a00a69b191f"
+          }
+        },
+        {
+          "client_id": "595320109252-jts8b0foeh7u776us8ounq7kr2muk8p3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thirumathikart.customer",
+            "certificate_hash": "8016a5ab48afd7706d88d17b7100db7df5b2f21e"
+          }
+        },
+        {
+          "client_id": "595320109252-n3vhlntkg9ea1q9btdvetclsosv5fk4a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPXfysrN1QQ-6XR_PkXklUE3r4Cs2Eb-s"
+          "current_key": "AIzaSyA5H2pOJ4jFEqLeSYL7wmjHbFwZFzW3JLE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "546206668634-ceui8j9g9te12emcfjrnrdas2ttg7rcl.apps.googleusercontent.com",
+              "client_id": "595320109252-n3vhlntkg9ea1q9btdvetclsosv5fk4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595320109252:android:ddeb06c7ae444f47a27191",
+        "android_client_info": {
+          "package_name": "com.thirumathikart.seller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595320109252-9lr11mq4i5eisgneb0chjhrflt9r5bnq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thirumathikart.seller",
+            "certificate_hash": "8016a5ab48afd7706d88d17b7100db7df5b2f21e"
+          }
+        },
+        {
+          "client_id": "595320109252-n3vhlntkg9ea1q9btdvetclsosv5fk4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5H2pOJ4jFEqLeSYL7wmjHbFwZFzW3JLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595320109252-n3vhlntkg9ea1q9btdvetclsosv5fk4a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

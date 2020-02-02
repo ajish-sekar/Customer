@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this,Register.class));
-                finish();
             }
         });
 
@@ -98,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         button.setOnClickListener(v -> {
-            number = edtemail.getText().toString();
-            pass = edtpass.getText().toString();
+            number = edtemail.getText().toString().trim();
+            pass = edtpass.getText().toString().trim();
 
             boolean isValid = true;
             if(number==null || number.length()==0){

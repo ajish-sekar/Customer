@@ -7,10 +7,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -26,6 +32,13 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.models.RegisterModel;
 import com.thirumathikart.customer.models.RegisterResponse;
@@ -46,6 +59,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
@@ -65,6 +79,9 @@ public class Register extends AppCompatActivity {
     RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
+    String verificationId;
+    PhoneAuthProvider.ForceResendingToken token;
+    FirebaseAuth auth;
     public static final String TAG = "MyTag";
 
 
@@ -79,6 +96,8 @@ public class Register extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
+
+        auth = FirebaseAuth.getInstance();
 
         container = findViewById(R.id.register_container);
 
@@ -345,12 +364,90 @@ public class Register extends AppCompatActivity {
 //        });
     }
 
-    private void requestOtp(){
+    private void signInWithPhone(PhoneAuthCredential credential){
+        final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Verfiying..")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(getApplicationContext(),"Verification Successfull",Toast.LENGTH_SHORT).show();
+                            otpLayout.setVisibility(View.GONE);
+                            otpRequest.setVisibility(View.GONE);
+                            registerLayout.setVisibility(View.VISIBLE);
+                            edtnumber.setEnabled(false);
+                            edtnumber.setFocusable(false);
+                            edtnumber.setInputType(InputType.TYPE_NULL);
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                Toast.makeText(getApplicationContext(),"Invalid OTP",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
 
     }
 
-    private void verifyOtp(){
+    private void requestOtp(){
+        mobile = edtnumber.getText().toString().trim();
 
+        if(mobile==null || mobile.length()==0){
+            edtnumber.setError("Mobile number is required");
+            return;
+        }
+        if(!mobile.contains("+")){
+            mobile = "+91"+mobile;
+        }
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                mobile,
+                120,
+                TimeUnit.SECONDS,
+                this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                        signInWithPhone(phoneAuthCredential);
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        super.onCodeSent(s, forceResendingToken);
+                        verificationId = s;
+                        token = forceResendingToken;
+
+                        otpLayout.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        Log.d("OTP",e.getMessage());
+                        Toast.makeText(getApplicationContext(),"An Error Occured, Please Try Again After Some Time",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
+
+    private void verifyOtp(){
+        String otp = edtotp.getText().toString().trim();
+
+        if(otp == null || otp.length()==0){
+            edtotp.setError("OTP is required");
+            return;
+        }
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,otp);
+        signInWithPhone(credential);
     }
 
     private void register(){
@@ -377,8 +474,6 @@ public class Register extends AppCompatActivity {
                     RegisterResponse body = response.body();
                     if(body.getCode()==200){
                         Toast.makeText(getApplicationContext(),"Registered Successfully",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Register.this,LoginActivity.class);
-                        startActivity(intent);
                         finish();
                     }else {
                         Snackbar.make(container,body.getMessage(),Snackbar.LENGTH_SHORT).show();
@@ -403,12 +498,12 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean verify(){
-        firstname = edtfirstname.getText().toString();
-        lastname  = edtlastname.getText().toString();
-        mobile = edtnumber.getText().toString();
-        email = edtemail.getText().toString();
-        password = edtpass.getText().toString();
-        String cnfpassword = edtpass.getText().toString();
+        firstname = edtfirstname.getText().toString().trim();
+        lastname  = edtlastname.getText().toString().trim();
+        mobile = edtnumber.getText().toString().trim();
+        email = edtemail.getText().toString().trim();
+        password = edtpass.getText().toString().trim();
+        String cnfpassword = edtpass.getText().toString().trim();
 
         boolean flag = true;
 
