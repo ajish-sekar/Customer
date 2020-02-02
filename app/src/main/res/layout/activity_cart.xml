@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/stats"
-    android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,14 +15,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="#000"
+        app:titleTextColor="@color/textPrimary"
         style="@style/CustomTheme"
-        android:background="@color/colorAccent">
+        android:background="@color/primary">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textColor="@color/textPrimary"
             android:text="My Cart"/>
 
 
@@ -32,24 +32,6 @@
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/notification"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:onClick="Notifications"/>
-
-
-            <ImageView
-                android:id="@+id/view_profile"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/profile"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:onClick="viewProfile"/>
 
 
         </LinearLayout>
@@ -94,11 +76,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorSecondary"
                 android:text="CHECKOUT"
                 android:elevation="40dp"
                 android:textSize="14dp"
-                android:textColor="@color/gen_white"
+                android:textColor="@color/textSecondary"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:onClick="checkout"/>

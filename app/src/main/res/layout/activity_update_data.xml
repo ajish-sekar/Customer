@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context="com.thirumathikart.customer.UpdateData">
 
@@ -17,11 +16,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/colorAccent"
+        app:titleTextColor="@color/textPrimary"
         app:logo="@null"
         android:gravity="left"
         style="@style/CustomTheme"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPrimary">
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,8 +106,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorAccent"
+            android:background="@color/colorSecondary"
+            android:textColor="@color/textSecondary"
             android:elevation="10dp"
             android:textSize="20dp"
             android:text="Lorem Ipsum" />
@@ -166,7 +165,7 @@
                             android:layout_marginTop="10dp"
                             android:id="@+id/update"
                             android:text="@string/update_details"
-                            style="@style/AppTheme.RoundedCornerDarkMaterialButton"
+                            style="@style/AppTheme.RoundedCornerMaterialButton"
                             android:textSize="15sp" />
 
                     </LinearLayout>

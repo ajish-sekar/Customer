@@ -409,6 +409,14 @@ public class Register extends AppCompatActivity {
             mobile = "+91"+mobile;
         }
 
+        final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 mobile,
                 120,
@@ -417,12 +425,14 @@ public class Register extends AppCompatActivity {
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                        progressDialog.dismiss();
                         signInWithPhone(phoneAuthCredential);
                     }
 
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(s, forceResendingToken);
+                        progressDialog.dismiss();
                         verificationId = s;
                         token = forceResendingToken;
 
@@ -433,6 +443,7 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         Log.d("OTP",e.getMessage());
+                        progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(),"An Error Occured, Please Try Again After Some Time",Toast.LENGTH_SHORT).show();
                     }
                 }

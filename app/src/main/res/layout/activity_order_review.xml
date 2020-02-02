@@ -16,7 +16,8 @@
             android:id="@+id/review_toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            android:background="@color/primary"
+            app:titleTextColor="@color/textPrimary"
             android:minHeight="?attr/actionBarSize">
 
         </androidx.appcompat.widget.Toolbar>
@@ -78,9 +79,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Pay Now"
-            android:textColor="@color/gen_white"
+            android:textColor="@color/textSecondary"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/primary"/>
+            android:backgroundTint="@color/colorSecondary"/>
 
         <Button
             android:id="@+id/cod_btn"
@@ -88,9 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cash on Delivery"
-            android:textColor="@color/gen_white"
+            android:textColor="@color/textSecondary"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/primary"/>
+            android:backgroundTint="@color/colorSecondary"/>
 
 
     </LinearLayout>

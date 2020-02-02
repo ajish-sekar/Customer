@@ -20,13 +20,15 @@
             android:id="@+id/toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
-            android:background="@color/colorAccent"
+            app:titleTextColor="@color/textPrimary"
+            android:background="@color/primary"
             android:minHeight="?attr/actionBarSize">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:textColor="@color/textPrimary"
                 android:text="Product"/>
 
 
@@ -199,10 +201,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/gen_white"
+            android:background="@color/textSecondary"
             android:text="ADD TO CART"
             android:textSize="14dp"
-            android:textColor="@color/gen_black"
+            android:textColor="@color/colorSecondary"
             android:textStyle="bold"
             android:gravity="center"
             android:onClick="addToCart"/>
@@ -212,10 +214,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorSecondary"
             android:text="BUY NOW"
             android:textSize="14dp"
-            android:textColor="@color/gen_white"
+            android:textColor="@color/textSecondary"
             android:textStyle="bold"
             android:gravity="center"
             android:onClick="goToCart"/>
