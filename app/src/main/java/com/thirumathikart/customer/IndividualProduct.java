@@ -46,6 +46,8 @@ public class IndividualProduct extends AppCompatActivity {
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
+    @BindView(R.id.seller_name)
+    TextView sellerName;
 //    @BindView(R.id.add_to_wishlist)
 //    LottieAnimationView addToWishlist;
     
@@ -89,6 +91,7 @@ public class IndividualProduct extends AppCompatActivity {
         productname.setText(product.getProductTitle());
         productdesc.setText(product.getProductDescription());
         quantityProductPage.setText("1");
+        sellerName.setText(product.getSeller().getSellerName());
         Picasso.with(IndividualProduct.this).load(product.getProductPhoto()).into(productimage);
 
         //SharedPreference for Cart Value
