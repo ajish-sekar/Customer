@@ -92,11 +92,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/gen_black"
                     />
-                <TextView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FREE Delivery"
-                    android:textSize="12dp"
-                    android:layout_marginTop="4dp"/>
+
             </LinearLayout>
 
             <LinearLayout
