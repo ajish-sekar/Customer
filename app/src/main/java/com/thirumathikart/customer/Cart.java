@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.models.CartModel;
+import com.thirumathikart.customer.models.CartPostResponse;
+import com.thirumathikart.customer.models.CartRequest;
 import com.thirumathikart.customer.models.SingleProductModel;
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.thirumathikart.customer.usersession.UserSession;
@@ -134,13 +136,16 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
                         checkoutBtn.setVisibility(View.VISIBLE);
                     }
                 }else {
-                    Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
+                    Snackbar snackbar = Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
                             .setAction("Try Again", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     fethCart();
                                 }
-                            }).show();
+                            });
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                    snackbar.show();
                 }
             }
 
@@ -200,6 +205,29 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
 //        };
 
 //        mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void updateQty(int position, CartModel product) {
+        CartRequest cartRequest = new CartRequest(product.getQuantity(),userId,product.getProduct().getProductId());
+
+        Call<CartPostResponse> call = ApiUtil.getService().updateCart(product.getId(),cartRequest);
+
+        call.enqueue(new Callback<CartPostResponse>() {
+            @Override
+            public void onResponse(Call<CartPostResponse> call, Response<CartPostResponse> response) {
+                if(response.isSuccessful()){
+                    adapter.udpateItem(position,product);
+                }else{
+                    Snackbar.make(container,"Error Updating",Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartPostResponse> call, Throwable t) {
+                Snackbar.make(container,"Error Updating",Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void checkout(View view) {

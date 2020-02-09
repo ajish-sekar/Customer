@@ -123,14 +123,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        if(prefManager.isLoggedIn()) {
-            Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-            startActivity(i);
-        }else{
-            Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
-            startActivity(i);
-        }
-        finish();
+        Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
     //  viewpager change listener

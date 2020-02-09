@@ -125,16 +125,16 @@ public class UserSession {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<>();
         // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_NAME, pref.getString(KEY_NAME, "guest"));
 
         // user email id
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, ""));
 
         // user phone number
-        user.put(KEY_MOBiLE, pref.getString(KEY_MOBiLE, null));
+        user.put(KEY_MOBiLE, pref.getString(KEY_MOBiLE, ""));
 
         // user avatar
-        user.put(KEY_PHOTO, pref.getString(KEY_PHOTO, null)) ;
+        user.put(KEY_PHOTO, pref.getString(KEY_PHOTO, "")) ;
 
         user.put(KEY_ID,pref.getInt(KEY_ID,0)+"");
 
@@ -150,6 +150,12 @@ public class UserSession {
     public void logoutUser(){
         // Clearing all data from Shared Preferences
         editor.putBoolean(IS_LOGIN,false);
+        editor.putString(KEY_NAME,"guest");
+        editor.putString(KEY_EMAIL,"");
+        editor.putString(KEY_MOBiLE,"");
+        editor.putInt(KEY_ID,0);
+        editor.putString(KEY_TOKEN,"");
+        editor.putString(KEY_PHOTO,"");
         editor.commit();
 
         // After logout redirect user to Login Activity

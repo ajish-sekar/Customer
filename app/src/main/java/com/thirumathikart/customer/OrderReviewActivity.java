@@ -30,6 +30,8 @@ import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.models.CheckoutRequest;
 import com.thirumathikart.customer.models.CheckoutResponse;
+import com.thirumathikart.customer.models.OrderConfirmModel;
+import com.thirumathikart.customer.models.OrderConfirmResponse;
 import com.thirumathikart.customer.models.PaytmModel;
 
 import java.util.ArrayList;
@@ -126,12 +128,13 @@ public class OrderReviewActivity extends AppCompatActivity {
                     Log.d("Paytm",inResponse.getString("STATUS"));
 
                     if(inResponse.getString("STATUS").equals("TXN_SUCCESS")){
-                        Intent intent = new Intent(OrderReviewActivity.this,OrderPlaced.class);
+                        confirmOrder();
+                    }else {
+                        Intent intent = new Intent(OrderReviewActivity.this,OrderFailedActivity.class);
                         intent.putExtra("orderid",orderId+"");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
-                    }else {
-                        Snackbar.make(container,"Transaction Failed",Snackbar.LENGTH_SHORT).show();
                     }
                 }
 
@@ -169,6 +172,61 @@ public class OrderReviewActivity extends AppCompatActivity {
 
     }
 
+    private void confirmOrder(){
+        final KProgressHUD progressDialog=  KProgressHUD.create(OrderReviewActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+        OrderConfirmModel confirmModel = new OrderConfirmModel();
+        confirmModel.setCustomerId(userId);
+        confirmModel.setOrderId(orderId);
+
+        Call<OrderConfirmResponse> call = ApiUtil.getService().confirmOrder(confirmModel);
+
+        call.enqueue(new Callback<OrderConfirmResponse>() {
+            @Override
+            public void onResponse(Call<OrderConfirmResponse> call, Response<OrderConfirmResponse> response) {
+                progressDialog.dismiss();
+                if(response.isSuccessful()){
+                    OrderConfirmResponse body = response.body();
+                    if(body.getCode()==200){
+                        Intent intent = new Intent(OrderReviewActivity.this,OrderPlaced.class);
+                        intent.putExtra("orderid",orderId+"");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Intent intent = new Intent(OrderReviewActivity.this,OrderFailedActivity.class);
+                        intent.putExtra("orderid",orderId+"");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else {
+                    Intent intent = new Intent(OrderReviewActivity.this,OrderFailedActivity.class);
+                    intent.putExtra("orderid",orderId+"");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<OrderConfirmResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Intent intent = new Intent(OrderReviewActivity.this,OrderFailedActivity.class);
+                intent.putExtra("orderid",orderId+"");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     private void checkout(){
 
         final KProgressHUD progressDialog=  KProgressHUD.create(OrderReviewActivity.this)
@@ -195,7 +253,7 @@ public class OrderReviewActivity extends AppCompatActivity {
                         payNowBtn.setEnabled(true);
                         codBtn.setEnabled(true);
                         orderIdTv.setText(body.getOrder().getId()+"");
-                        orderTotalTv.setText(body.getOrder().getAmount()+"");
+                        orderTotalTv.setText("₹"+body.getOrder().getAmount());
                         adapter = new OrderReviewAdapter(new ArrayList<>(body.getOrder().getItems()),getApplicationContext());
                         recyclerView.setAdapter(adapter);
                         paytm = body.getPaytm();
@@ -208,13 +266,16 @@ public class OrderReviewActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CheckoutResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(container,"Error Occurred",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Error Occurred",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 checkout();
                             }
-                        }).show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
 

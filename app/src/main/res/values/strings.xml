@@ -55,7 +55,7 @@
     Address : NIT-Tiruchirappalli (620015)</string>
     <string name="title_activity_process_order">ProcessOrder</string>
     <string name="orderdetails">Your Order has been Placed Succesfully. \n Here is your Unique Order Id !</string>
-
+    <string name="orderfailed">Unfortunately your order has failed, Please contact customer support if your money was deducted. \n Here is your Order Id</string>
 
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>

@@ -268,7 +268,14 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName(R.string.myprofile).withIcon(R.drawable.profile);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.wishlist).withIcon(R.drawable.wishlist);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.myorders).withIcon(R.drawable.orders);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
+
+        PrimaryDrawerItem item5;
+        if(session.isLoggedIn()){
+            item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
+        }else {
+            item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.login).withIcon(R.drawable.rightarrow);
+        }
+
 
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(R.string.aboutapp).withIcon(R.drawable.credits);
@@ -305,21 +312,42 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 2:
-                                startActivity(new Intent(MainActivity.this, Profile.class));
+                                if(session.isLoggedIn()) {
+                                    startActivity(new Intent(MainActivity.this, Profile.class));
+                                }else {
+                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case 3:
-                                startActivity(new Intent(MainActivity.this, Wishlist.class));
+                                if(session.isLoggedIn()) {
+                                    startActivity(new Intent(MainActivity.this, Wishlist.class));
+                                }else {
+                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case 4:
-                                startActivity(new Intent(MainActivity.this, OrdersActivity.class));
+                                if(session.isLoggedIn()) {
+                                    startActivity(new Intent(MainActivity.this, OrdersActivity.class));
+                                }else {
+                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case 5:
-                                session.logoutUser();
-                                finish();
+                                if(session.isLoggedIn()){
+                                    session.logoutUser();
+                                    finish();
+                                }else {
+                                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                                }
+
                                 break;
 
                             case 7:
-                                startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+                                if(session.isLoggedIn()) {
+                                    startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+                                }else {
+                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                }
                                 break;
 
                             case 8:
@@ -429,11 +457,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void viewProfile(View view) {
-        startActivity(new Intent(MainActivity.this, Profile.class));
+        if(session.isLoggedIn()){
+            startActivity(new Intent(MainActivity.this, Profile.class));
+        }else {
+            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(MainActivity.this, Cart.class));
+        if(session.isLoggedIn()) {
+            startActivity(new Intent(MainActivity.this, Cart.class));
+        }else {
+            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -446,7 +483,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+        if(session.isLoggedIn()){
+            startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+        }else {
+            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void foodHandler(View view) {

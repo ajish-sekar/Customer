@@ -43,7 +43,7 @@ public class NotificationActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         emptycart = findViewById(R.id.empty_notification);
 
-        showNotifications();
+//        showNotifications();
 
     }
 

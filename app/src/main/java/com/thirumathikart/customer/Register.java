@@ -497,13 +497,16 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Please Try Again",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 register();
                             }
-                        }).show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
     }

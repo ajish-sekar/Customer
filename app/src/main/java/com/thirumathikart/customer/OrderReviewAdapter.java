@@ -41,6 +41,7 @@ public class OrderReviewAdapter extends RecyclerView.Adapter<OrderReviewAdapter.
         holder.title.setText(item.getProduct().getProductTitle() + "x" + item.getQuantity());
         Double amount = item.getQuantity()*item.getProduct().getProductPrice();
         holder.price.setText("₹"+amount);
+        Picasso.with(context).setLoggingEnabled(true);
         Picasso.with(context).load(item.getProduct().getProductPhoto()).into(holder.picture);
     }
 
