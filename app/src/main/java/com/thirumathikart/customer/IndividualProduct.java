@@ -46,7 +46,7 @@ public class IndividualProduct extends AppCompatActivity {
     @BindView(R.id.productdesc)
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
-    EditText quantityProductPage;
+    TextView quantityProductPage;
     @BindView(R.id.seller_name)
     TextView sellerName;
 //    @BindView(R.id.add_to_wishlist)
@@ -168,7 +168,7 @@ public class IndividualProduct extends AppCompatActivity {
             quantity++;
             quantityProductPage.setText(String.valueOf(quantity));
         } else {
-            Toasty.error(IndividualProduct.this, "No more of the product is available", Toast.LENGTH_LONG).show();
+            Toasty.error(IndividualProduct.this, "No more of the product is available", Toast.LENGTH_SHORT).show();
         }
     }
 
