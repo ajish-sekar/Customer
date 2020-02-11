@@ -9,6 +9,8 @@ import com.thirumathikart.customer.models.CheckoutRequest;
 import com.thirumathikart.customer.models.CheckoutResponse;
 import com.thirumathikart.customer.models.LoginRequest;
 import com.thirumathikart.customer.models.LoginResponse;
+import com.thirumathikart.customer.models.OrderConfirmModel;
+import com.thirumathikart.customer.models.OrderConfirmResponse;
 import com.thirumathikart.customer.models.OrdersModel;
 import com.thirumathikart.customer.models.Product;
 import com.thirumathikart.customer.models.RegisterModel;
@@ -46,7 +48,7 @@ public interface ApiService {
     Call<List<CartModel>> getCart(@Query("customer_id") int customerId);
 
     @PUT("/cart/{cart_id}")
-    Call<CartPostResponse> updateCart(@Body CartRequest cart);
+    Call<CartPostResponse> updateCart(@Path("cart_id") int cartId, @Body CartRequest cart);
 
     @DELETE("/cart/{cart_id}")
     Call<ResponseBody> deleteCart(@Path("cart_id") int cartId);
@@ -68,4 +70,8 @@ public interface ApiService {
 
     @POST("/customers/register/")
     Call<RegisterResponse> register(@Body RegisterModel user);
+
+    @POST("/cart/confirm-order/")
+    Call<OrderConfirmResponse> confirmOrder(@Body OrderConfirmModel confirmModel);
+
 }

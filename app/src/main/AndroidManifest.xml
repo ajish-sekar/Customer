@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:name=".init.CustomApplication"
@@ -19,8 +19,10 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderReviewActivity"
-            android:theme="@style/WhiteTheme"></activity>
+        <activity android:name=".OrderFailedActivity"></activity>
+        <activity
+            android:name=".OrderReviewActivity"
+            android:theme="@style/WhiteTheme" />
         <activity
             android:name=".AddAddressActivity"
             android:theme="@style/WhiteTheme" />

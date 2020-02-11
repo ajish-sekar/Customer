@@ -190,13 +190,16 @@ public class AddressSelectionActivity extends AppCompatActivity {
                         recyclerView.setVisibility(View.VISIBLE);
                     }
                 }else {
-                    Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
+                    Snackbar snackbar = Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
                             .setAction("Try Again", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     getAddresses();
                                 }
-                            }).show();
+                            });
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                    snackbar.show();
                 }
             }
 
@@ -206,13 +209,16 @@ public class AddressSelectionActivity extends AppCompatActivity {
                     tv_no_item.setVisibility(View.GONE);
                 }
                 Log.e("Cart",t.getMessage());
-                Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Error fetching Cart",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 getAddresses();
                             }
-                        }).show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
     }

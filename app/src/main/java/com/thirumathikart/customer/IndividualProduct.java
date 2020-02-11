@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
+import com.thirumathikart.customer.prodcutscategory.ProductsActivity;
 import com.thirumathikart.customer.usersession.UserSession;
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +47,8 @@ public class IndividualProduct extends AppCompatActivity {
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
+    @BindView(R.id.seller_name)
+    TextView sellerName;
 //    @BindView(R.id.add_to_wishlist)
 //    LottieAnimationView addToWishlist;
     
@@ -89,6 +92,7 @@ public class IndividualProduct extends AppCompatActivity {
         productname.setText(product.getProductTitle());
         productdesc.setText(product.getProductDescription());
         quantityProductPage.setText("1");
+        sellerName.setText(product.getSeller().getSellerName());
         Picasso.with(IndividualProduct.this).load(product.getProductPhoto()).into(productimage);
 
         //SharedPreference for Cart Value
@@ -113,8 +117,19 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(IndividualProduct.this, NotificationActivity.class));
-        finish();
+        if(session.isLoggedIn()) {
+            startActivity(new Intent(IndividualProduct.this, NotificationActivity.class));
+            finish();
+        }else {
+            Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                    .setAction("Login", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(IndividualProduct.this, LoginActivity.class));
+                        }
+                    })
+                    .show();
+        }
     }
 
     @Override
@@ -190,6 +205,21 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void addToCart(View view) {
 
+        if(!session.isLoggedIn()){
+            Snackbar snackbar = Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                    .setAction("Login", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(IndividualProduct.this, LoginActivity.class));
+                        }
+                    });
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+            snackbar.show();
+
+            return;
+        }
+
 
         Call<CartPostResponse> call = ApiUtil.getService().addToCart(new CartRequest(quantity,userId,product.getProductId()));
 
@@ -199,25 +229,31 @@ public class IndividualProduct extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Snackbar.make(container,"Added To Cart",Snackbar.LENGTH_SHORT).show();
                 }else{
-                    Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                    Snackbar snackbar = Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
                             .setAction("Try Again", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     addToCart(view);
                                 }
-                            }).show();
+                            });
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                    snackbar.show();
                 }
             }
 
             @Override
             public void onFailure(Call<CartPostResponse> call, Throwable t) {
-                Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Error adding to Cart",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 addToCart(view);
                             }
-                        }).show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
 
@@ -231,6 +267,20 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     public void goToCart(View view) {
+
+        if(!session.isLoggedIn()){
+            Snackbar snackbar = Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                    .setAction("Login", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(IndividualProduct.this, LoginActivity.class));
+                        }
+                    });
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+            snackbar.show();
+            return;
+        }
 
         Call<CartPostResponse> call = ApiUtil.getService().addToCart(new CartRequest(quantity,userId,product.getProductId()));
 

@@ -1,17 +1,18 @@
 package com.thirumathikart.customer;
 
+import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
 
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class OrderPlaced extends AppCompatActivity {
+public class OrderFailedActivity extends AppCompatActivity {
 
     @BindView(R.id.orderid)
     TextView orderidview;
@@ -20,7 +21,7 @@ public class OrderPlaced extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_placed);
+        setContentView(R.layout.activity_order_failed);
         ButterKnife.bind(this);
 
         //check Internet Connection
@@ -35,8 +36,9 @@ public class OrderPlaced extends AppCompatActivity {
     }
 
     public void finishActivity(View view) {
-        Intent intent = new Intent(OrderPlaced.this,MainActivity.class);
+        Intent intent = new Intent(OrderFailedActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
 }
+

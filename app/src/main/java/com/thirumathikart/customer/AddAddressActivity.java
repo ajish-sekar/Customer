@@ -141,13 +141,16 @@ public class AddAddressActivity extends AppCompatActivity {
             public void onFailure(Call<AddressModel> call, Throwable t) {
                 addressBtn.setEnabled(true);
                 addressBtn.setText("Add Address");
-                Snackbar.make(container,"Error adding Address",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Error adding Address",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 addAddress();
                             }
-                        }).show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
     }

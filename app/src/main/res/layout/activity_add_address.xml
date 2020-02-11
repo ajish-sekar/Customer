@@ -135,6 +135,7 @@
                 android:hint="District"
                 android:layout_margin="8dp"
                 app:errorEnabled="true"
+                android:focusable="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -143,7 +144,9 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:maxLines="1"
-                    android:inputType="text"/>
+                    android:inputType="none"
+                    android:text="Tiruchirappalli"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -153,6 +156,7 @@
                 android:hint="State"
                 android:layout_margin="8dp"
                 app:errorEnabled="true"
+                android:focusable="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +165,9 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:text="Tamil Nadu"/>
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout

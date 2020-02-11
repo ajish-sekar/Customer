@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.thirumathikart.customer.models.AddressModel;
@@ -53,8 +54,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
 
         if(selectedIndex == -1 || selectedIndex!=position){
             holder.layout.setBackground(ContextCompat.getDrawable(context,R.drawable.grey_border));
+            holder.button.setChecked(false);
         }else {
             holder.layout.setBackground(ContextCompat.getDrawable(context,R.drawable.orange_border));
+            holder.button.setChecked(true);
         }
 
         AddressModel address = addressList.get(position);
@@ -65,10 +68,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         holder.address.setText(address.getLineOne()+","+address.getLineTwo()+","+address.getLandmark()+","+
                 address.getDistrict()+","+address.getState()+","+address.getPincode());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.selectionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.layout.setBackground(ContextCompat.getDrawable(context,R.drawable.orange_border));
+                holder.button.setChecked(true);
                 if(selectedIndex!=position){
                     int oldPosition = selectedIndex;
                     selectedIndex = position;
@@ -93,12 +97,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         TextView number;
         TextView address;
         LinearLayout layout;
+        RadioButton button;
+        LinearLayout selectionLayout;
         public AddressViewHolder(View view){
             super(view);
             name = view.findViewById(R.id.address_name);
             number = view.findViewById(R.id.address_number);
             address = view.findViewById(R.id.address_value);
             layout = view.findViewById(R.id.address_layout);
+            button = view.findViewById(R.id.address_selection);
+            selectionLayout = view.findViewById(R.id.address_selection_layout);
         }
     }
 }

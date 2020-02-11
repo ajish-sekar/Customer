@@ -18,16 +18,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.collection.LLRBNode;
 import com.thirumathikart.customer.Cart;
+import com.thirumathikart.customer.LoginActivity;
 import com.thirumathikart.customer.NotificationActivity;
 import com.thirumathikart.customer.R;
 import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.models.Product;
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.google.android.material.snackbar.Snackbar;
+import com.thirumathikart.customer.usersession.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,7 @@ public class ProductsActivity extends AppCompatActivity {
     StaggeredGridLayoutManager layoutManager;
     ProductsAdapter adapter;
     View container;
+    UserSession session;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,6 +73,7 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products);
 
         Toolbar toolbar = findViewById(R.id.products_toolbar);
+
         setSupportActionBar(toolbar);
 
 
@@ -75,6 +81,7 @@ public class ProductsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        session = new UserSession(getApplicationContext());
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
@@ -89,6 +96,10 @@ public class ProductsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         category = intent.getStringExtra(KEY_CATEGORY);
+
+        TextView title = findViewById(R.id.products_title);
+
+        title.setText(category);
 
         fetchProducts(category);
 
@@ -113,14 +124,16 @@ public class ProductsActivity extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(getApplicationContext(),"Please Try Again",Toast.LENGTH_SHORT).show();
-                    Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
+                    Snackbar snackbar = Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
                             .setAction("Try Again", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     fetchProducts(category);
                                 }
-                            })
-                            .show();
+                            });
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                    snackbar.show();
                 }
             }
 
@@ -130,25 +143,55 @@ public class ProductsActivity extends AppCompatActivity {
                 if(tv_no_item.getVisibility() == View.VISIBLE){
                     tv_no_item.setVisibility(View.GONE);
                 }
-                Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
+                Snackbar snackbar = Snackbar.make(container,"Error Loading",Snackbar.LENGTH_SHORT)
                         .setAction("Try Again", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 fetchProducts(category);
                             }
-                        })
-                        .show();
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
             }
         });
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(ProductsActivity.this, Cart.class));
-        finish();
+        if(session.isLoggedIn()){
+            startActivity(new Intent(ProductsActivity.this, Cart.class));
+            finish();
+        }else {
+            Snackbar snackbar = Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                    .setAction("Login", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(ProductsActivity.this, LoginActivity.class));
+                        }
+                    });
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+            snackbar.show();
+        }
+
     }
 
     public void Notifications(View view) {
-        startActivity(new Intent(ProductsActivity.this, NotificationActivity.class));
-        finish();
+        if(session.isLoggedIn()) {
+            startActivity(new Intent(ProductsActivity.this, NotificationActivity.class));
+            finish();
+        }else {
+            Snackbar snackbar = Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                    .setAction("Login", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(ProductsActivity.this, LoginActivity.class));
+                        }
+                    });
+
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+            snackbar.show();
+        }
     }
 }
