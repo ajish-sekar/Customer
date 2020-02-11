@@ -530,4 +530,9 @@ public class MainActivity extends AppCompatActivity {
         productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Grocery");
         startActivity(productIntent);
     }
+
+    public void organicHandler(View view) {
+        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Organic");
+        startActivity(productIntent);
+    }
 }

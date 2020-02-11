@@ -802,10 +802,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length()>10) {
-                edtnumber.setError("Number cannot be grated than 10 digits");
-            }else if(check.length()<10){
-                edtnumber.setError("Number should be 10 digits");
+            if (check.length()!=10) {
+                edtnumber.setError("Number should be 10 digits long.");
             }
         }
 

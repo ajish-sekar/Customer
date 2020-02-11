@@ -47,10 +47,10 @@ public interface ApiService {
     @GET("/cart")
     Call<List<CartModel>> getCart(@Query("customer_id") int customerId);
 
-    @PUT("/cart/{cart_id}")
+    @PUT("/cart/{cart_id}/")
     Call<CartPostResponse> updateCart(@Path("cart_id") int cartId, @Body CartRequest cart);
 
-    @DELETE("/cart/{cart_id}")
+    @DELETE("/cart/{cart_id}/")
     Call<ResponseBody> deleteCart(@Path("cart_id") int cartId);
 
     @GET("/orders")
