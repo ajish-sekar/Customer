@@ -493,8 +493,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void foodHandler(View view) {
-        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Food");
-        startActivity(productIntent);
+        Toast.makeText(getApplicationContext(),"Coming soon!!",Toast.LENGTH_LONG).show();
+//        productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Food");
+//        startActivity(productIntent);
     }
 
     public void clothingHandler(View view) {

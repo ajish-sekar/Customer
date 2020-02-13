@@ -101,60 +101,55 @@
                 android:padding="10dp">
 
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="10">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <androidx.cardview.widget.CardView
-                        android:onClick="foodHandler"
                         style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius">
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:onClick="organicHandler">
 
                         <RelativeLayout
-                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <ImageView
-                                android:id="@+id/visitingcards"
+                                android:id="@+id/organicImage"
                                 style="@style/homegridimage"
-                                android:src="@drawable/food" />
+                                android:src="@drawable/grocery" />
 
                             <TextView
-                                android:layout_below="@id/visitingcards"
-                                android:text="Food"
+                                android:layout_below="@id/organicImage"
+                                android:text="Organic Fruits\n &amp; Vegetables"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
-
                     <androidx.cardview.widget.CardView
                         style="@style/homegridcard"
-                    card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="clothingHandler">
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:onClick="groceryHandler">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/tshirts"
-                            style="@style/homegridimage"
-                            android:src="@drawable/clothing" />
+                            <ImageView
+                                android:id="@+id/groceryImage"
+                                style="@style/homegridimage"
+                                android:src="@drawable/grocer" />
 
-                        <TextView
-                            android:layout_below="@id/tshirts"
-                            android:text="Clothing"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                android:layout_below="@id/groceryImage"
+                                android:text="Grocery.."
+                                style="@style/homegridtext"/>
 
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
 
-          </LinearLayout>
-
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -260,53 +255,60 @@
                 </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
+
+                    <androidx.cardview.widget.CardView
+                        android:onClick="foodHandler"
+                        style="@style/homegridcard"
+                        android:background="#000"
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
+
+                        <RelativeLayout
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/visitingcards"
+                                style="@style/homegridimage"
+                                android:src="@drawable/food" />
+
+                            <TextView
+                                android:layout_below="@id/visitingcards"
+                                android:text="Food"
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="organicHandler">
+                        android:onClick="clothingHandler">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <ImageView
-                                android:id="@+id/organicImage"
+                                android:id="@+id/tshirts"
                                 style="@style/homegridimage"
-                                android:src="@drawable/grocery" />
+                                android:src="@drawable/clothing" />
 
                             <TextView
-                                android:layout_below="@id/organicImage"
-                                android:text="Organic Fruits\n &amp; Vegetables"
+                                android:layout_below="@id/tshirts"
+                                android:text="Clothing"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
-
                     </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="groceryHandler">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/groceryImage"
-                                style="@style/homegridimage"
-                                android:src="@drawable/grocer" />
-
-                            <TextView
-                                android:layout_below="@id/groceryImage"
-                                android:text="Grocery.."
-                                style="@style/homegridtext"/>
-
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
             </LinearLayout>
