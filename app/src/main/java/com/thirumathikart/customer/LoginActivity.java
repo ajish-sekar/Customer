@@ -78,6 +78,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        forgotpass = findViewById(R.id.forgot_pass);
+        forgotpass.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
+        });
+
         //if user forgets password
 //        forgotpass=findViewById(R.id.forgot_pass);
 //        forgotpass.setOnClickListener(new View.OnClickListener() {
@@ -105,14 +110,14 @@ public class LoginActivity extends AppCompatActivity {
                 edtemail.setError("Number is Required");
                 isValid = false;
             }else {
-                edtemail.setError("");
+                edtemail.setError(null);
             }
 
             if(pass==null || pass.length()==0){
                 edtpass.setError("Password is Required");
                 isValid = false;
             }else {
-                edtpass.setError("");
+                edtpass.setError(null);
             }
 
             if(!isValid){

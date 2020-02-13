@@ -12,6 +12,8 @@ import com.thirumathikart.customer.models.LoginResponse;
 import com.thirumathikart.customer.models.OrderConfirmModel;
 import com.thirumathikart.customer.models.OrderConfirmResponse;
 import com.thirumathikart.customer.models.OrdersModel;
+import com.thirumathikart.customer.models.PasswordResetRequest;
+import com.thirumathikart.customer.models.PasswordResetResponse;
 import com.thirumathikart.customer.models.Product;
 import com.thirumathikart.customer.models.RegisterModel;
 import com.thirumathikart.customer.models.RegisterResponse;
@@ -73,5 +75,8 @@ public interface ApiService {
 
     @POST("/cart/confirm-order/")
     Call<OrderConfirmResponse> confirmOrder(@Body OrderConfirmModel confirmModel);
+
+    @POST("/customers/password_reset/")
+    Call<PasswordResetResponse> resetPassword(@Body PasswordResetRequest passwordReset);
 
 }
