@@ -319,11 +319,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 3:
-                                if(session.isLoggedIn()) {
-                                    startActivity(new Intent(MainActivity.this, Wishlist.class));
-                                }else {
-                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(getApplicationContext(),"Coming soon!!",Toast.LENGTH_SHORT).show();
+//                                if(session.isLoggedIn()) {
+//                                    startActivity(new Intent(MainActivity.this, Wishlist.class));
+//                                }else {
+//                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//                                }
                                 break;
                             case 4:
                                 if(session.isLoggedIn()) {
@@ -343,11 +344,12 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case 7:
-                                if(session.isLoggedIn()) {
-                                    startActivity(new Intent(MainActivity.this, NotificationActivity.class));
-                                }else {
-                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(getApplicationContext(),"Coming soon!!",Toast.LENGTH_SHORT).show();
+//                                if(session.isLoggedIn()) {
+//                                    startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+//                                }else {
+//                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//                                }
                                 break;
 
                             case 8:
