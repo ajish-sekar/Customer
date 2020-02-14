@@ -41,7 +41,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         holder.cardname.setText(products.get(position).getProductTitle());
         holder.cardprice.setText("₹"+products.get(position).getProductPrice());
-        Picasso.with(context).load(products.get(position).getProductPhoto()).into(holder.cardimage);
+        Picasso.with(context).load(products.get(position).getProductPhoto()).placeholder(R.drawable.cart).into(holder.cardimage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
