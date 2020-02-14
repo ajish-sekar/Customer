@@ -22,6 +22,9 @@
     <string name="login_now">Login Now</string>
     <string name="changepassword">Change Password</string>
     <string name="noorders">You Haven\'t Placed Any Orders Yet</string>
+    <string name="sortprice">Sort by Price: </string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
 
     <!--Navigation drawer items-->
     <string name="home">Home</string>

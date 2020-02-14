@@ -51,6 +51,43 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/toggle_layout"
+        android:layout_below="@id/products_toolbarwrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sortprice"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ascending"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="4dp"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sort_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:switchMinWidth="48dp"
+            app:switchPadding="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descending"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/products_tv_no_cards"
         android:layout_width="match_parent"
@@ -65,7 +102,7 @@
 
     <FrameLayout
         android:padding="5dp"
-        android:layout_below="@id/products_toolbarwrap"
+        android:layout_below="@id/toggle_layout"
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
