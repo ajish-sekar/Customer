@@ -39,4 +39,12 @@ public class OrderPlaced extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(OrderPlaced.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

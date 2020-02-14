@@ -40,5 +40,13 @@ public class OrderFailedActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(OrderFailedActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

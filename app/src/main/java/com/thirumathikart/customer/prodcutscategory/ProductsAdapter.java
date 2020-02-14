@@ -14,6 +14,8 @@ import com.thirumathikart.customer.models.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     private ArrayList<Product> products;
     private Context context;
+    public static int ASCENDING = 1;
+    public static int DESCENDING = 2;
 
     public ProductsAdapter(ArrayList<Product> products, Context context){
         this.products = products;
@@ -41,7 +45,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         holder.cardname.setText(products.get(position).getProductTitle());
         holder.cardprice.setText("₹"+products.get(position).getProductPrice());
-        Picasso.with(context).load(products.get(position).getProductPhoto()).into(holder.cardimage);
+        Picasso.with(context).load(products.get(position).getProductPhoto()).placeholder(R.drawable.cart).into(holder.cardimage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +56,27 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                 context.startActivity(intent);
             }
         });
+    }
+
+    void sortProducts(int ordering){
+        if(ordering == ASCENDING){
+            Collections.sort(products, new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+
+                    return o1.getProductPrice().compareTo(o2.getProductPrice());
+                }
+            });
+
+        }else if (ordering == DESCENDING){
+            Collections.sort(products, new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o2.getProductPrice().compareTo(o1.getProductPrice());
+                }
+            });
+        }
+        notifyDataSetChanged();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.cardname.setText(products.get(position).getProduct().getProductTitle());
         holder.cardprice.setText("₹ "+products.get(position).getProduct().getProductPrice());
         holder.cardcount.setText(products.get(position).getQuantity()+"");
-        Picasso.with(context).load(products.get(position).getProduct().getProductPhoto()).into(holder.cardimage);
+        Picasso.with(context).load(products.get(position).getProduct().getProductPhoto()).placeholder(R.drawable.cart).into(holder.cardimage);
 
 
         holder.carddelete.setOnClickListener(new View.OnClickListener() {

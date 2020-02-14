@@ -1,6 +1,7 @@
 package com.thirumathikart.customer.prodcutscategory;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +48,7 @@ public class ProductsActivity extends AppCompatActivity {
     ProductsAdapter adapter;
     View container;
     UserSession session;
+    SwitchCompat sortToggle;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,6 +92,7 @@ public class ProductsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.products_recycler_view);
         tv_no_item = findViewById(R.id.products_tv_no_cards);
         container = findViewById(R.id.products_layout);
+        sortToggle = findViewById(R.id.sort_toggle);
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -102,6 +106,20 @@ public class ProductsActivity extends AppCompatActivity {
         title.setText(category);
 
         fetchProducts(category);
+
+        sortToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(adapter == null){
+                    return;
+                }
+                if(isChecked){
+                    adapter.sortProducts(ProductsAdapter.DESCENDING);
+                }else {
+                    adapter.sortProducts(ProductsAdapter.ASCENDING);
+                }
+            }
+        });
 
     }
 
@@ -120,6 +138,7 @@ public class ProductsActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     ArrayList<Product> products = new ArrayList<>(response.body());
                     adapter = new ProductsAdapter(products,getApplicationContext());
+                    adapter.sortProducts(ProductsAdapter.ASCENDING);
                     recyclerView.setAdapter(adapter);
 
                 }else{
