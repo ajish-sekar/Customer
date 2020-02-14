@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -35,6 +36,7 @@ public class OrdersActivity extends AppCompatActivity {
     StaggeredGridLayoutManager layoutManager;
     OrdersAdapter adapter;
     View container;
+    TextView noOrders;
 
     private UserSession session;
     private HashMap<String,String> user;
@@ -63,6 +65,7 @@ public class OrdersActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.orders_recycler_view);
         tv_no_item = findViewById(R.id.orders_tv_no_cards);
         container = findViewById(R.id.orders_layout);
+        noOrders = findViewById(R.id.no_orders_tv);
 
         layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -108,6 +111,13 @@ public class OrdersActivity extends AppCompatActivity {
                     ArrayList<OrdersModel> orders = new ArrayList<>(response.body());
                     adapter = new OrdersAdapter(orders,getApplicationContext());
                     recyclerView.setAdapter(adapter);
+                    if(orders.size()==0){
+                        recyclerView.setVisibility(View.GONE);
+                        noOrders.setVisibility(View.VISIBLE);
+                    }else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        noOrders.setVisibility(View.GONE);
+                    }
 
                 }else{
                     Log.v("Orders","Unsuccessful request");

@@ -21,6 +21,7 @@
     <string name="already_mem">Already a member ? </string>
     <string name="login_now">Login Now</string>
     <string name="changepassword">Change Password</string>
+    <string name="noorders">You Haven\'t Placed Any Orders Yet</string>
 
     <!--Navigation drawer items-->
     <string name="home">Home</string>

@@ -75,6 +75,16 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
 
+        <TextView
+            android:id="@+id/no_orders_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/noorders"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
+
     </FrameLayout>
 
 </RelativeLayout>

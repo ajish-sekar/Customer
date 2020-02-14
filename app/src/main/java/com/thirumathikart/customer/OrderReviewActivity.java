@@ -1,5 +1,6 @@
 package com.thirumathikart.customer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -168,6 +170,26 @@ public class OrderReviewActivity extends AppCompatActivity {
                     Snackbar.make(container,"Transaction Cancelled", Snackbar.LENGTH_SHORT).show();
                 }
             });
+        });
+
+        codBtn.setOnClickListener(v -> {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Cash On Delivery")
+                    .setMessage("Do You Wish To Proceed?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            confirmOrder();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            dialog.show();
         });
 
     }
