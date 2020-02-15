@@ -23,8 +23,8 @@
     <string name="changepassword">Change Password</string>
     <string name="noorders">You Haven\'t Placed Any Orders Yet</string>
     <string name="sortprice">Sort by Price: </string>
-    <string name="ascending">Ascending</string>
-    <string name="descending">Descending</string>
+    <string name="ascending">Low - High</string>
+    <string name="descending">High - Low</string>
 
     <!--Navigation drawer items-->
     <string name="home">Home</string>
