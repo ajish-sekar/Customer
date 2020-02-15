@@ -1,6 +1,7 @@
 package com.thirumathikart.customer.prodcutscategory;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class SearchProductActivity extends AppCompatActivity {
     ProductsAdapter adapter;
     View container;
     TextView noResultsTv;
+    SwitchCompat sortToggle;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -56,11 +59,26 @@ public class SearchProductActivity extends AppCompatActivity {
         tv_no_item = findViewById(R.id.search_products_tv_no_cards);
         container = findViewById(R.id.search_products_layout);
         noResultsTv = findViewById(R.id.search_no_results);
+        sortToggle = findViewById(R.id.sort_toggle);
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         handleIntent(getIntent());
+
+        sortToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(adapter == null){
+                    return;
+                }
+                if(isChecked){
+                    adapter.sortProducts(ProductsAdapter.DESCENDING);
+                }else {
+                    adapter.sortProducts(ProductsAdapter.ASCENDING);
+                }
+            }
+        });
 
     }
 
@@ -77,6 +95,7 @@ public class SearchProductActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     ArrayList<Product> products = new ArrayList<>(response.body());
                     adapter = new ProductsAdapter(products,getApplicationContext());
+                    adapter.sortProducts(ProductsAdapter.ASCENDING);
                     recyclerView.setAdapter(adapter);
                     if(products.size()==0){
                         noResultsTv.setVisibility(View.VISIBLE);
