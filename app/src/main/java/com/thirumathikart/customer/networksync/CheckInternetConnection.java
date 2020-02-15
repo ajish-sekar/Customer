@@ -29,7 +29,7 @@ public class CheckInternetConnection {
                         .setBackgroundColor(R.color.accent)
                         .setimageResource(R.drawable.internetconnection)
                         .setTextTitle("No Internet")
-                        .setTextSubTitle("Cannot connect to a servers")
+                        .setTextSubTitle("Cannot connect to servers")
                         .setBody(R.string.noconnection)
                         .setPositiveButtonText("Connect Now")
                         .setPositiveColor(R.color.colorPrimaryDark)

@@ -94,8 +94,8 @@ public class OrderReviewActivity extends AppCompatActivity {
         userId = intent.getIntExtra(AddressSelectionActivity.KEY_CUSTOMER_ID,0);
         addressId = intent.getIntExtra(AddressSelectionActivity.KEY_ADDRESS_ID,0);
 
-        PaytmPGService Service = PaytmPGService.getStagingService("https://securegw-stage.paytm.in/order/process");
-
+//        PaytmPGService Service = PaytmPGService.getStagingService("https://securegw-stage.paytm.in/order/process");
+        PaytmPGService Service = PaytmPGService.getProductionService();
         payNowBtn.setEnabled(false);
         codBtn.setEnabled(false);
 
