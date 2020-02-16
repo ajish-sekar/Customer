@@ -73,6 +73,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:visibility="invisible"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="170dp"

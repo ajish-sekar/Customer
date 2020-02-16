@@ -120,24 +120,21 @@ public class Profile extends AppCompatActivity {
 
     private void inflateImageSlider() {
 
-        // Using Image Slider -----------------------------------------------------------------------
         sliderShow = findViewById(R.id.slider);
 
         //populating Image slider
-        ArrayList<String> sliderImages= new ArrayList<>();
-        sliderImages.add("http://uploads.printland.in/fnf/online2017/home_republic_day.jpg");
-        sliderImages.add("http://uploads.printland.in/fnf/online2017/calender-homepage-29-dec.jpg");
-        sliderImages.add("http://uploads.printland.in/fnf/online2017/notebook-homepage-05-dec.jpg");
-//        sliderImages.add("http://uploads.printland.in/fnf/online2017/home-vtds.jpg");
-
-        for (String s:sliderImages){
-            DefaultSliderView sliderView=new DefaultSliderView(this);
+        int[] sliderImages = new int[]{
+                R.drawable.banner_1,
+                R.drawable.banner_2,
+                R.drawable.banner_3
+        };
+        for (int s : sliderImages) {
+            DefaultSliderView sliderView = new DefaultSliderView(this);
             sliderView.image(s);
             sliderShow.addSlider(sliderView);
         }
 
         sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-
     }
 
     @Override

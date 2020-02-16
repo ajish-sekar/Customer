@@ -40,7 +40,7 @@
                 android:id="@+id/cart"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/cart"
+                android:src="@drawable/profile"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:onClick="viewCart"/>

@@ -302,8 +302,8 @@ public class UpdateData extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 20) {
-                edtname.setError("Name Must consist of 4 to 20 characters");
+            if (check.length() <1) {
+                edtname.setError("Name cannot be empty.");
             }
         }
 
@@ -357,10 +357,8 @@ public class UpdateData extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length()>10) {
-                edtmobile.setError("Number cannot be grated than 10 digits");
-            }else if(check.length()<10){
-                edtmobile.setError("Number should be 10 digits");
+            if (check.length()!=10) {
+                edtmobile.setError("Kindly enter valid 10 digit number");
             }
         }
 
