@@ -20,10 +20,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.thirumathikart.customer.orders.OrdersActivity;
 import com.thirumathikart.customer.prodcutscategory.ProductsActivity;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private String  first_time;
     Intent productIntent;
 
+    RelativeLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
-
+        container = findViewById(R.id.MainActivityContainer);
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
@@ -315,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(session.isLoggedIn()) {
                                     startActivity(new Intent(MainActivity.this, Profile.class));
                                 }else {
-                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                    showLoginSnackBar();
                                 }
                                 break;
                             case 3:
@@ -330,7 +333,8 @@ public class MainActivity extends AppCompatActivity {
                                 if(session.isLoggedIn()) {
                                     startActivity(new Intent(MainActivity.this, OrdersActivity.class));
                                 }else {
-                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+                                    showLoginSnackBar();
                                 }
                                 break;
                             case 5:
@@ -462,7 +466,8 @@ public class MainActivity extends AppCompatActivity {
         if(session.isLoggedIn()){
             startActivity(new Intent(MainActivity.this, Profile.class));
         }else {
-            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+            showLoginSnackBar();
         }
 
     }
@@ -471,7 +476,8 @@ public class MainActivity extends AppCompatActivity {
         if(session.isLoggedIn()) {
             startActivity(new Intent(MainActivity.this, Cart.class));
         }else {
-            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+            showLoginSnackBar();
         }
     }
 
@@ -488,7 +494,8 @@ public class MainActivity extends AppCompatActivity {
         if(session.isLoggedIn()){
             startActivity(new Intent(MainActivity.this, NotificationActivity.class));
         }else {
-            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"Login To Proceed",Toast.LENGTH_SHORT).show();
+            showLoginSnackBar();
         }
     }
 
@@ -537,5 +544,18 @@ public class MainActivity extends AppCompatActivity {
     public void organicHandler(View view) {
         productIntent.putExtra(ProductsActivity.KEY_CATEGORY,"Organic");
         startActivity(productIntent);
+    }
+
+    private void showLoginSnackBar(){
+        Snackbar snackbar = Snackbar.make(container,"Please Login",Snackbar.LENGTH_SHORT)
+                .setAction("Login", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                });
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+        snackbar.show();
     }
 }
