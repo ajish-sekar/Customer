@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -229,13 +230,12 @@ public class MainActivity extends AppCompatActivity {
         sliderShow = findViewById(R.id.slider);
 
         //populating Image slider
-        ArrayList<String> sliderImages = new ArrayList<>();
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/Business_stationery_home_banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-home-banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/free-visiting-cards-home-banner.JPG");
-
-        for (String s : sliderImages) {
+        int[] sliderImages = new int[]{
+                R.drawable.banner_1,
+                R.drawable.banner_2,
+                R.drawable.banner_3
+        };
+      for (int s : sliderImages) {
             DefaultSliderView sliderView = new DefaultSliderView(this);
             sliderView.image(s);
             sliderShow.addSlider(sliderView);
