@@ -10,6 +10,17 @@ public class OrderConfirmModel {
     @SerializedName("customer")
     @Expose
     private int customerId;
+    @SerializedName("paid")
+    @Expose
+    private boolean hasPaid;
+
+    public boolean getHasPaid() {
+        return hasPaid;
+    }
+
+    public void setHasPaid(boolean hasPaid) {
+        this.hasPaid = hasPaid;
+    }
 
     public int getCustomerId() {
         return customerId;

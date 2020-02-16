@@ -130,7 +130,9 @@ public class OrderReviewActivity extends AppCompatActivity {
                     Log.d("Paytm",inResponse.getString("STATUS"));
 
                     if(inResponse.getString("STATUS").equals("TXN_SUCCESS")){
-                        confirmOrder();
+                        OrderConfirmModel confirmModel = new OrderConfirmModel();
+                        confirmModel.setHasPaid(true);
+                        confirmOrder(confirmModel);
                     }else {
                         Intent intent = new Intent(OrderReviewActivity.this,OrderFailedActivity.class);
                         intent.putExtra("orderid",orderId+"");
@@ -179,7 +181,9 @@ public class OrderReviewActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            confirmOrder();
+                            OrderConfirmModel confirmModel = new OrderConfirmModel();
+                            confirmModel.setHasPaid(false);
+                            confirmOrder(confirmModel);
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -194,7 +198,7 @@ public class OrderReviewActivity extends AppCompatActivity {
 
     }
 
-    private void confirmOrder(){
+    private void confirmOrder(OrderConfirmModel confirmModel){
         final KProgressHUD progressDialog=  KProgressHUD.create(OrderReviewActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Please wait")
@@ -202,7 +206,7 @@ public class OrderReviewActivity extends AppCompatActivity {
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
-        OrderConfirmModel confirmModel = new OrderConfirmModel();
+//        OrderConfirmModel confirmModel = new OrderConfirmModel();
         confirmModel.setCustomerId(userId);
         confirmModel.setOrderId(orderId);
 
