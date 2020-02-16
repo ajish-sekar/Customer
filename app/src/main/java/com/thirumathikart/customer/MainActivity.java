@@ -129,17 +129,17 @@ public class MainActivity extends AppCompatActivity {
 
             new TapTargetSequence(this)
                     .targets(
-                            TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.first),
+//                            TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
+//                                    .targetCircleColor(R.color.colorAccent)
+//                                    .titleTextColor(R.color.colorAccent)
+//                                    .titleTextSize(25)
+//                                    .descriptionTextSize(15)
+//                                    .descriptionTextColor(R.color.accent)
+//                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
+//                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+//                                    .tintTarget(true)
+//                                    .transparentTarget(true)
+//                                    .outerCircleColor(R.color.first),
                             TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
                                     .targetCircleColor(R.color.colorAccent)
                                     .titleTextColor(R.color.colorAccent)
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                     .tintTarget(true)
                                     .transparentTarget(true)
                                     .outerCircleColor(R.color.second),
-                            TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+                            TapTarget.forView(findViewById(R.id.groceryImage), "Categories", "Browse various categories here !")
                                     .targetCircleColor(R.color.colorAccent)
                                     .titleTextColor(R.color.colorAccent)
                                     .titleTextSize(25)
