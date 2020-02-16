@@ -94,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return products.get(position);
     }
 
-    void udpateItem(int position, CartModel product){
+    void updateItem(int position, CartModel product){
         products.set(position,product);
         notifyItemChanged(position);
     }

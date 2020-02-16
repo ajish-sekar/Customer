@@ -217,7 +217,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartInterface
             @Override
             public void onResponse(Call<CartPostResponse> call, Response<CartPostResponse> response) {
                 if(response.isSuccessful()){
-                    adapter.udpateItem(position,product);
+                    adapter.updateItem(position,product);
                 }else{
                     Snackbar.make(container,"Error Updating",Snackbar.LENGTH_SHORT).show();
                 }
