@@ -2,6 +2,8 @@ package com.thirumathikart.customer.prodcutscategory;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +60,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         });
     }
 
-    void sortProducts(int ordering){
+    public void sortProducts(int ordering){
         if(ordering == ASCENDING){
             Collections.sort(products, new Comparator<Product>() {
                 @Override

@@ -161,7 +161,7 @@
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Details"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textColor="@color/gen_black"/>
                 <TextView
                     android:id="@+id/productdesc"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="\u2022 Regular fit, full sleeve"
-                    android:textSize="12dp"
+                    android:textSize="14sp"
                     android:textColor="@color/gen_black"/>
 
             </LinearLayout>
@@ -188,7 +188,7 @@
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Seller Details"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textColor="@color/gen_black"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -200,17 +200,37 @@
                         android:layout_height="wrap_content"
                         android:text="Name: "
                         android:textColor="@color/black"
-                        android:textSize="12dp"/>
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/seller_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="\u2022 Regular fit, full sleeve"
-                        android:textSize="12dp"
+                        android:textSize="14sp"
                         android:textColor="@color/gen_black"/>
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/other_products_seller"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seller_other_products_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"/>
+            <TextView
+                android:id="@+id/no_other_products_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:text="@string/seller_no_products"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

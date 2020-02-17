@@ -25,6 +25,8 @@
     <string name="sortprice">Sort by Price: </string>
     <string name="ascending">Low - High</string>
     <string name="descending">High - Low</string>
+    <string name="other_products_seller">Other Products by Seller</string>
+    <string name="seller_no_products">Seller Doesn\'t have Other Products</string>
 
     <!--Navigation drawer items-->
     <string name="home">Home</string>

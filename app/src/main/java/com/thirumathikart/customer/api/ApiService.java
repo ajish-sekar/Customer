@@ -79,4 +79,7 @@ public interface ApiService {
     @POST("/customers/password_reset/")
     Call<PasswordResetResponse> resetPassword(@Body PasswordResetRequest passwordReset);
 
+    @GET("/products/other-products-by-seller")
+    Call<List<Product>> otherProducts(@Query("seller_account") int sellerId, @Query("product_id") int productId);
+
 }
