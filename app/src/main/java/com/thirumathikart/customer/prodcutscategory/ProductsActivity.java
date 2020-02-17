@@ -3,6 +3,7 @@ package com.thirumathikart.customer.prodcutscategory;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import retrofit2.Call;
@@ -13,13 +14,17 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +46,7 @@ import java.util.List;
 public class ProductsActivity extends AppCompatActivity {
 
     public static String KEY_CATEGORY = "category";
+    public static String COLUMN_PRODUCT_NAME = "productName";
 
     RecyclerView recyclerView;
     LottieAnimationView tv_no_item;
@@ -49,6 +55,7 @@ public class ProductsActivity extends AppCompatActivity {
     View container;
     UserSession session;
     SwitchCompat sortToggle;
+    SimpleCursorAdapter searchAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +71,40 @@ public class ProductsActivity extends AppCompatActivity {
         ComponentName cn = new ComponentName(this, SearchProductActivity.class);
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(cn));
+        searchView.setSuggestionsAdapter(searchAdapter);
+
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                Cursor cursor = (Cursor) searchAdapter.getItem(position);
+                String txt = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
+                searchView.setQuery(txt, true);
+                return true;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                Cursor cursor = (Cursor) searchAdapter.getItem(position);
+                String txt = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
+                searchView.setQuery(txt, true);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchSuggestions(newText);
+                return false;
+            }
+        });
+
+
 
         return true;
     }
@@ -94,6 +135,15 @@ public class ProductsActivity extends AppCompatActivity {
         container = findViewById(R.id.products_layout);
         sortToggle = findViewById(R.id.sort_toggle);
 
+        final String[] from = new String[] {COLUMN_PRODUCT_NAME};
+        final int[] to = new int[] {android.R.id.text1};
+        searchAdapter = new SimpleCursorAdapter(getApplicationContext(),
+                android.R.layout.simple_list_item_1,
+                null,
+                from,
+                to,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -121,6 +171,34 @@ public class ProductsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void fetchSuggestions(String query){
+        Call<List<String>> call = ApiUtil.getService().getSuggestions(query);
+
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if(response.isSuccessful()){
+                    populateSearchAdapter(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void populateSearchAdapter(List<String> suggestions){
+        final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, COLUMN_PRODUCT_NAME });
+
+        for(int i = 0; i < suggestions.size(); i++){
+            c.addRow(new Object[]{i,suggestions.get(i)});
+        }
+
+        searchAdapter.changeCursor(c);
     }
 
     void fetchProducts(String category){

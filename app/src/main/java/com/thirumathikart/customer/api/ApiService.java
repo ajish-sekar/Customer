@@ -82,4 +82,7 @@ public interface ApiService {
     @GET("/products/other-products-by-seller")
     Call<List<Product>> otherProducts(@Query("seller_account") int sellerId, @Query("product_id") int productId);
 
+    @GET("/products/suggestions")
+    Call<List<String>> getSuggestions(@Query("query") String query);
+
 }

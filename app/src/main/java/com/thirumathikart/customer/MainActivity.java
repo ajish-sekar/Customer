@@ -6,6 +6,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,16 +19,19 @@ import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.BaseColumns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.thirumathikart.customer.orders.OrdersActivity;
 import com.thirumathikart.customer.prodcutscategory.ProductsActivity;
@@ -57,8 +62,15 @@ import com.webianks.easy_feedback.EasyFeedback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import androidx.cursoradapter.widget.CursorAdapter;
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.thirumathikart.customer.prodcutscategory.ProductsActivity.COLUMN_PRODUCT_NAME;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     Intent productIntent;
 
     RelativeLayout container;
+    SimpleCursorAdapter searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +101,15 @@ public class MainActivity extends AppCompatActivity {
         container = findViewById(R.id.MainActivityContainer);
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
+
+        final String[] from = new String[] {COLUMN_PRODUCT_NAME};
+        final int[] to = new int[] {android.R.id.text1};
+        searchAdapter = new SimpleCursorAdapter(getApplicationContext(),
+                android.R.layout.simple_list_item_1,
+                null,
+                from,
+                to,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         //retrieve session values and display on listviews
         getValues();
@@ -125,8 +147,68 @@ public class MainActivity extends AppCompatActivity {
         ComponentName cn = new ComponentName(this, SearchProductActivity.class);
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(cn));
+        searchView.setSuggestionsAdapter(searchAdapter);
+
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                Cursor cursor = (Cursor) searchAdapter.getItem(position);
+                String txt = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
+                searchView.setQuery(txt, true);
+                return true;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                Cursor cursor = (Cursor) searchAdapter.getItem(position);
+                String txt = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
+                searchView.setQuery(txt, true);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchSuggestions(newText);
+                return false;
+            }
+        });
 
         return true;
+    }
+
+    void fetchSuggestions(String query){
+        Call<List<String>> call = ApiUtil.getService().getSuggestions(query);
+
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if(response.isSuccessful()){
+                    populateSearchAdapter(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void populateSearchAdapter(List<String> suggestions){
+        final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, COLUMN_PRODUCT_NAME });
+
+        for(int i = 0; i < suggestions.size(); i++){
+            c.addRow(new Object[]{i,suggestions.get(i)});
+        }
+
+        searchAdapter.changeCursor(c);
     }
 
     private void tapview() {
