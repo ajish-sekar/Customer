@@ -3,6 +3,7 @@ package com.thirumathikart.customer;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.common.api.Api;
 import com.thirumathikart.customer.api.ApiUtil;
 import com.thirumathikart.customer.models.CartPostResponse;
 import com.thirumathikart.customer.models.CartRequest;
@@ -20,9 +21,16 @@ import android.widget.Toast;
 
 import com.thirumathikart.customer.networksync.CheckInternetConnection;
 import com.thirumathikart.customer.prodcutscategory.ProductsActivity;
+import com.thirumathikart.customer.prodcutscategory.ProductsAdapter;
 import com.thirumathikart.customer.usersession.UserSession;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
@@ -51,6 +59,11 @@ public class IndividualProduct extends AppCompatActivity {
     TextView sellerName;
 //    @BindView(R.id.add_to_wishlist)
 //    LottieAnimationView addToWishlist;
+    @BindView(R.id.seller_other_products_rv)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.no_other_products_tv)
+    TextView noProductsTv;
     
 
     @BindView(R.id.activity_item_details)
@@ -58,6 +71,7 @@ public class IndividualProduct extends AppCompatActivity {
 
     private String usermobile, useremail, token;
     private int userId;
+    ProductsAdapter adapter;
 
     public static String KEY_PRODUCT = "product";
 
@@ -80,8 +94,68 @@ public class IndividualProduct extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL));
+
         initialize();
 
+        getOtherProductsBySeller();
+
+    }
+
+    void getOtherProductsBySeller(){
+        int sellerId = product.getSeller().getSellerAccount();
+        int productId = product.getProductId();
+
+        Call<List<Product>> call = ApiUtil.getService().otherProducts(sellerId,productId);
+
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if(response.isSuccessful()){
+                    ArrayList<Product> products = new ArrayList<>(response.body());
+                    adapter = new ProductsAdapter(products,getApplicationContext());
+                    adapter.sortProducts(ProductsAdapter.ASCENDING);
+                    recyclerView.setAdapter(adapter);
+                    if(products.size()==0){
+                        noProductsTv.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }else {
+                        noProductsTv.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    noProductsTv.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    Snackbar snackbar = Snackbar.make(container,"Error Fetching Other Products",Snackbar.LENGTH_SHORT)
+                            .setAction("Try Again", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    getOtherProductsBySeller();
+                                }
+                            });
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                    snackbar.show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                noProductsTv.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                Snackbar snackbar = Snackbar.make(container,"Error Fetching Other Products",Snackbar.LENGTH_SHORT)
+                        .setAction("Try Again", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getOtherProductsBySeller();
+                            }
+                        });
+                View sbView = snackbar.getView();
+                sbView.setBackgroundColor(getResources().getColor(R.color.primary));
+                snackbar.show();
+            }
+        });
     }
 
     private void initialize() {
